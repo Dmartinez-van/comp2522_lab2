@@ -1,5 +1,3 @@
-package ca.bcit.comp2522.bank;
-
 /**
  * Represents a date with day, month, and year components.
  * Provides validation for day, month, and year values, including leap year handling.
@@ -11,7 +9,8 @@ package ca.bcit.comp2522.bank;
  * @author Daniel Do, Jason Firkus, David Martinez, Yehor Skudilov
  * @version 1.0
  */
-public final class Date {
+public final class Date
+{
 
     private static final int MINIMUM_YEAR = 1800;
     private static final int CURRENT_YEAR = 2025;
