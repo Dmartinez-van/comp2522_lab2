@@ -6,6 +6,10 @@
  */
 public class Creature
 {
+    // We will probably end up making Creature
+    // Abstract. In which case we can copy + paste method functionality
+    // to the children classes.
+
     private static final int MIN_HEALTH = 0;
     private static final int MAX_HEALTH = 100;
     private static final int MIN_DAMAGE = 0;
