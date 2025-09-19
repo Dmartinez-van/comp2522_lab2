@@ -94,4 +94,65 @@ public class Creature
             health = MIN_HEALTH;
         }
     }
+
+    /**
+     * Heals a creature by a non-negative amount.
+     * Will set Creature's health to {@value MAX_HEALTH} if
+     * they were to be healed past the max ({@value MAX_HEALTH}).
+     * @param healAmount the amount to heal
+     */
+    public void heal(final int healAmount)
+    {
+        // check for healAmount exceeding 100
+
+        // check for negative heal amount -> throw new HealingException
+
+        health += healAmount;
+
+        if (health > MAX_HEALTH)
+        {
+            health = MAX_HEALTH;
+        }
+    }
+
+    /**
+     * Calculates the creatures age in years based on {@value CURRENT_YEAR}.
+     * @return the age of creature; unit: years
+     */
+    public int getAgeYears()
+    {
+        final int ageYears;
+
+        ageYears= dateOfBirth.getYear() - CURRENT_YEAR;
+
+        return ageYears;
+    }
+
+    /**
+     * Returns the creatures details.
+     * <ul>
+     *     <li>Name</li>
+     *     <li>Date of birth</li>
+     *     <li>Age</li>
+     *     <li>Health</li>
+     * </ul>
+     * @return a string message of the creature's details
+     */
+    public String getDetails()
+    {
+        final int age;
+        final String finalMessage;
+        String messageBuilder;
+
+        age = getAgeYears();
+
+        messageBuilder = "Name: " + name + "\n";
+        messageBuilder += "Date of birth: " + dateOfBirth + "\n";
+        messageBuilder += "Age: " + age + "\n";
+        messageBuilder += "Health: " + health + "\n";
+
+        finalMessage = messageBuilder;
+
+        return finalMessage;
+    }
 }
