@@ -8,11 +8,13 @@ public class Creature
 {
     private static final int MIN_HEALTH = 0;
     private static final int MAX_HEALTH = 100;
+    private static final int MIN_DAMAGE = 0;
     private static final int CURRENT_YEAR = 2025;
 
     private final String name;
     private final Date dateOfBirth;
-    private final int health;
+
+    private int health;
 
     Creature(final String name,
              final Date dateOfBirth,
@@ -69,4 +71,27 @@ public class Creature
         return health > MIN_HEALTH;
     }
 
+    /**
+     * Creature's health is reduced by damage taken.
+     * Damage taken cannot be below {@value MIN_DAMAGE}.
+     * If creature's health goes below {@value MIN_HEALTH},
+     * it is set to {@value MIN_HEALTH}.
+     * @param damageTaken the amount of damage taken
+     */
+    public void takeDamage(final int damageTaken)
+    {
+        if (damageTaken < MIN_DAMAGE)
+        {
+            throw new DamageExeption("Damage cannot be below " +
+                                      MIN_DAMAGE);
+        }
+
+        final int newHealth;
+        newHealth = health - damageTaken;
+
+        if (newHealth < MIN_HEALTH)
+        {
+            health = MIN_HEALTH;
+        }
+    }
 }
