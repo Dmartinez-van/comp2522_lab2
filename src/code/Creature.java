@@ -146,6 +146,7 @@ public class Creature
     {
         final int age;
         final String finalMessage;
+
         String messageBuilder;
 
         age = getAgeYears();
