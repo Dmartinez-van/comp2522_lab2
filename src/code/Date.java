@@ -456,7 +456,7 @@ public final class Date
 
         stepZeroValue = ZERO;
 
-        if (isLeapYear(year) && (month == JANUARY || month == FEBRUARY_INDEX))
+        if (isLeapYear(year) && (month == JANUARY || month == FEBRUARY))
         {
             stepZeroValue += stepZeroConstantJanFebLeapYear;
         }
