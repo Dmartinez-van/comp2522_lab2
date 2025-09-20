@@ -1,14 +1,23 @@
 /**
- * Dragon class, child of Creature.
- * Has class specific data for:
+ * Represents a dragon, which is a type of creature with a unique fire power attribute and abilities.
+ * <p>
+ * This class models a dragon's fire power, which is an integer value (unitless) ranging from
+ * {@link #MINIMUM_FIRE_POWER} to {@link #MAXIMUM_FIRE_POWER}. The fire power determines the dragon's
+ * ability to use its fire breath attack and can be restored up to its maximum value.
+ * </p>
+ * <p>
+ * <b>Class-specific data:</b>
  * <ul>
- *     <li>firePower; datetype: int</li>
+ *     <li><b>firePower</b>: The current fire power level of the dragon (int, unitless, range: {@link #MINIMUM_FIRE_POWER} to {@link #MAXIMUM_FIRE_POWER}).</li>
  * </ul>
- * Has class specific methods for:
+ * </p>
+ * <p>
+ * <b>Class-specific methods:</b>
  * <ul>
- *     <li>int breathFire()</li>
- *     <li>void restoreFirePower()</li>
+ *     <li>{@code int breatheFire()}: Attempts to use the dragon's fire breath, reducing {@code firePower} by {@link #FIRE_POWER_ACTIVATION} and returning {@link #FIRE_BREATH_DAMAGE}. Throws {@code LowFirePowerException} if {@code firePower} is insufficient.</li>
+ *     <li>{@code void restoreFirePower(final int amount)}: Restores the dragon's {@code firePower} by the specified amount, not exceeding {@link #MAXIMUM_FIRE_POWER}.</li>
  * </ul>
+ * </p>
  *
  * @author David Martinez, Daniel Do
  * @version 1.0
@@ -23,13 +32,19 @@ public class Dragon extends Creature
 
     private int firePower;
 
-    /**
-     * Full constructor for Dragon.
+/**
+     * Constructs a new Dragon with the specified name, date of birth, health, and fire power.
+     * <p>
+     * This constructor initializes a Dragon object by setting its name, date of birth, health, and fire power.
+     * The fire power must be within the range defined by {@link #MINIMUM_FIRE_POWER} and {@link #MAXIMUM_FIRE_POWER}.
+     * If the fire power is outside this range, an {@link IllegalArgumentException} is thrown.
+     * </p>
      *
-     * @param name        of the dragon
-     * @param dateOfBirth of the dragon
-     * @param health      of the dragon
-     * @param firePower   of the dragon
+     * @param name the name of the dragon as a {@link String}
+     * @param dateOfBirth the date of birth of the dragon as a {@link Date}
+     * @param health the health value of the dragon as an {@code int}
+     * @param firePower the initial fire power of the dragon as an {@code int}, must be between {@link #MINIMUM_FIRE_POWER} and {@link #MAXIMUM_FIRE_POWER}
+     * @throws IllegalArgumentException if {@code firePower} is less than {@link #MINIMUM_FIRE_POWER} or greater than {@link #MAXIMUM_FIRE_POWER}
      */
     public Dragon(final String name,
                   final Date dateOfBirth,
@@ -52,10 +67,14 @@ public class Dragon extends Creature
 
         if (firePowerLowerBound || firePowerUpperBound)
         {
-            throw new IllegalArgumentException("Fire power must be between "
-                    + MINIMUM_FIRE_POWER
-                    + " and "
-                    + MAXIMUM_FIRE_POWER + ".");
+            final StringBuilder errorMessage;
+            errorMessage = new StringBuilder("Fire power must be between ");
+            errorMessage.append(MINIMUM_FIRE_POWER);
+            errorMessage.append(" and ");
+            errorMessage.append(MAXIMUM_FIRE_POWER);
+            errorMessage.append(".");
+
+            throw new IllegalArgumentException(errorMessage.toString());
         }
     }
 
@@ -74,14 +93,13 @@ public class Dragon extends Creature
     @Override
     public String getDetails()
     {
-        final StringBuilder sb;
+        final StringBuilder detailsBuilder;
+        detailsBuilder = new StringBuilder(super.getDetails());
+        detailsBuilder.append("Fire Power: ");
+        detailsBuilder.append(firePower);
+        detailsBuilder.append("\n");
 
-        sb = new StringBuilder(super.getDetails());
-        sb.append("Fire Power: ");
-        sb.append(firePower);
-        sb.append("\n");
-
-        return sb.toString();
+        return detailsBuilder.toString();
     }
 
     /**
