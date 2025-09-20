@@ -59,13 +59,9 @@ public class Dragon extends Creature
 
     private void checkFirePower(final int firePower)
     {
-        final boolean firePowerLowerBound;
-        final boolean firePowerUpperBound;
 
-        firePowerLowerBound = firePower < MINIMUM_FIRE_POWER;
-        firePowerUpperBound = firePower > MAXIMUM_FIRE_POWER;
-
-        if (firePowerLowerBound || firePowerUpperBound)
+        if (firePower < MINIMUM_FIRE_POWER ||
+            firePower > MAXIMUM_FIRE_POWER)
         {
             final StringBuilder errorMessage;
             errorMessage = new StringBuilder();
