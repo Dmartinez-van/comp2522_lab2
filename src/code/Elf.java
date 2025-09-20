@@ -2,12 +2,15 @@ public class Elf extends Creature
 {
     public static final int MINIMUM_MANA = 0;
     public static final int MAXIMUM_MANA = 50;
-    public static final int SPELL_COST = 5;
+    public static final int SPELL_COST   = 5;
     public static final int SPELL_DAMAGE = 10;
 
     private int mana;
 
-    public Elf(String name, Date dateOfBirth, int health, int mana)
+    public Elf(final String name,
+               Date dateOfBirth,
+               int health,
+               int mana)
     {
         super(name, dateOfBirth, health);
         checkMana(mana);
