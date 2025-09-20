@@ -21,11 +21,14 @@ public class Elf extends Creature
     {
         if (mana < MINIMUM_MANA || mana > MAXIMUM_MANA)
         {
-            throw new IllegalArgumentException("Mana must be between "
-                    + MINIMUM_MANA
-                    + " and "
-                    + MAXIMUM_MANA
-                    + ".");
+            final StringBuilder errorMessage;
+            errorMessage = new StringBuilder();
+            errorMessage.append("Mana must be between ");
+            errorMessage.append(MINIMUM_MANA);
+            errorMessage.append(" and ");
+            errorMessage.append(MAXIMUM_MANA);
+            errorMessage.append(".");
+            throw new IllegalArgumentException(errorMessage.toString());
         }
     }
 

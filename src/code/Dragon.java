@@ -68,7 +68,8 @@ public class Dragon extends Creature
         if (firePowerLowerBound || firePowerUpperBound)
         {
             final StringBuilder errorMessage;
-            errorMessage = new StringBuilder("Fire power must be between ");
+            errorMessage = new StringBuilder();
+            errorMessage.append("Fire power must be between ");
             errorMessage.append(MINIMUM_FIRE_POWER);
             errorMessage.append(" and ");
             errorMessage.append(MAXIMUM_FIRE_POWER);
@@ -94,7 +95,8 @@ public class Dragon extends Creature
     public String getDetails()
     {
         final StringBuilder detailsBuilder;
-        detailsBuilder = new StringBuilder(super.getDetails());
+        detailsBuilder = new StringBuilder();
+        detailsBuilder.append(super.getDetails());
         detailsBuilder.append("Fire Power: ");
         detailsBuilder.append(firePower);
         detailsBuilder.append("\n");
