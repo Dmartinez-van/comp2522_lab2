@@ -40,11 +40,11 @@ public class Main
 
         dDay    = 12;
         dMonth  = 1;
-        dYear   = 1432;
+        dYear   = 1801;
 
         eDay    = 3;
         eMonth  = 3;
-        eYear   = 1857;
+        eYear   = 1897;
 
         oDay    = 13;
         oMonth  = 5;
@@ -79,9 +79,9 @@ public class Main
                          startingHealth,
                          startingRage);
 
-        System.out.println("Dragon Details:\n " + dragon.getDetails());
-        System.out.println("Elf Details:\n "    + elf.getDetails());
-        System.out.println("Orc Details:\n "    + orc.getDetails());
+        System.out.println("Dragon Details:\n" + dragon.getDetails() + "\n");
+        System.out.println("Elf Details:\n"    + elf.getDetails() + "\n");
+        System.out.println("Orc Details:\n"    + orc.getDetails() + "\n");
         System.out.println();
 
         System.out.println("dragon instance of Creature?: " +

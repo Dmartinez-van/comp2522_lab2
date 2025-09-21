@@ -127,7 +127,7 @@ public class Creature
     {
         final int ageYears;
 
-        ageYears= dateOfBirth.getYear() - CURRENT_YEAR;
+        ageYears = CURRENT_YEAR - dateOfBirth.getYear();
 
         return ageYears;
     }
@@ -152,7 +152,7 @@ public class Creature
         age = getAgeYears();
 
         messageBuilder = "Name: " + name + "\n";
-        messageBuilder += "Date of birth: " + dateOfBirth + "\n";
+        messageBuilder += "Date of birth: " + dateOfBirth.getYYYYMMDD() + "\n";
         messageBuilder += "Age: " + age + "\n";
         messageBuilder += "Health: " + health + "\n";
 
