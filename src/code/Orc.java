@@ -8,8 +8,9 @@
 public class Orc extends Creature
 {
     private static final int BERSERK_INCREASE_RAGE_POINTS = 5;
-    private static final int BERSERK_RAGE_COST = 5;
+    private static final int BERSERK_COST = 5;
     private static final int MIN_RAGE_POINTS = 0;
+    private static final int MAX_RAGE_POINTS = 30;
     private static final int RAGE_THRESHOLD_POINTS = 20;
     private static final int DAMAGE_NORMAL_HP_POINTS = 15;
     private static final int DAMAGE_DOUBLE_HP_POINTS = 30;
@@ -58,12 +59,18 @@ public class Orc extends Creature
     /**
      * Performs a berserk attack on the specified target creature.
      * <p>
-     * This method increases the orc's rage by
-     * {@value BERSERK_INCREASE_RAGE_POINTS} points.
-     * Berserk costs {@value BERSERK_RAGE_COST}, if current rage is lower a
-     * LowRageException is thrown.
-     * If the resulting rage exceeds {@value RAGE_THRESHOLD_POINTS}, the orc
-     * deals double damage
+     *     Method executes in the following order:
+     *     <ol>
+     *         <li>Checks for sufficient rage, berserk() costs
+     *         {@value BERSERK_COST}.</li>
+     *         <li>If insufficient rage, throws new error.</li>
+     *         <li>If successful, increases rage by
+     *         {@value BERSERK_INCREASE_RAGE_POINTS}</li>
+     *         <li>If the resulting rage exceeds {@value RAGE_THRESHOLD_POINTS},
+     *         the orc deals double damage</li>
+     *         <li></li>
+     *     </ol>
+     *
      * ({@value DAMAGE_DOUBLE_HP_POINTS} health points) to the target creature.
      * Otherwise, the orc deals normal damage
      * ({@value DAMAGE_NORMAL_HP_POINTS} health points).
@@ -71,22 +78,23 @@ public class Orc extends Creature
      * The rage value is immutable in this implementation; to allow rage to
      * increase, remove the final modifier.
      *
-     * @throws LowRageException         if the resulting rage is less than
-     *                                  {@value MIN_RAGE_POINTS}
-     * @throws IllegalArgumentException if targetCreature is null
+     * @throws LowRageException if the resulting rage is less
+     *                          than {@value BERSERK_COST}
+     * @return the damage the orc will deal.
      */
     public final int berserk() throws LowRageException
     {
-        final int newRage;
-
-        newRage = rage + BERSERK_INCREASE_RAGE_POINTS;
-
-        if (newRage < MIN_RAGE_POINTS)
+        if (rage < BERSERK_COST)
         {
             throw new LowRageException("Rage is too low to go berserk.");
         }
 
-        rage = newRage;
+        rage += BERSERK_INCREASE_RAGE_POINTS;
+
+        if (rage > MAX_RAGE_POINTS)
+        {
+            rage = MAX_RAGE_POINTS;
+        }
 
         if (rage > RAGE_THRESHOLD_POINTS)
         {

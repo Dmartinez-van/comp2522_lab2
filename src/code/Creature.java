@@ -87,12 +87,9 @@ public class Creature
                     MIN_DAMAGE_ALLOWED);
         }
 
-        // Only declare if valid damage taken
-        final int newHealth;
+        health -= damageTaken;
 
-        newHealth = health - damageTaken;
-
-        if (newHealth < MIN_HEALTH)
+        if (health < MIN_HEALTH)
         {
             health = MIN_HEALTH;
         }
@@ -135,6 +132,15 @@ public class Creature
         ageYears = CURRENT_YEAR - dateOfBirth.getYear();
 
         return ageYears;
+    }
+
+    /**
+     * Gets creature's current health.
+     * @return current health.
+     */
+    public int getCurrentHealth()
+    {
+        return health;
     }
 
     /**
