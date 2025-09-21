@@ -16,18 +16,22 @@ public class Elf extends Creature
 
     /**
      * The current mana points of the Elf.
-     * Mana is used to cast spells and is limited between {@value #MINIMUM_MANA} and {@value #MAXIMUM_MANA}.
+     * Mana is used to cast spells and is limited between {@value #MINIMUM_MANA}
+     * and {@value #MAXIMUM_MANA}.
      */
     private int mana;
 
     /**
-     * Constructs a new Elf with the specified name, date of birth, health, and mana.
-     * Mana must be between {@value #MINIMUM_MANA} and {@value #MAXIMUM_MANA}, inclusive.
+     * Constructs a new Elf with the specified name, date of birth,
+     * health, and mana.
+     * Mana must be between {@value #MINIMUM_MANA} and
+     * {@value #MAXIMUM_MANA}, inclusive.
      *
      * @param name        the name of the Elf
      * @param dateOfBirth the date of birth of the Elf
      * @param health      the initial health points of the Elf
-     * @param mana        the initial mana points of the Elf; must be between {@value #MINIMUM_MANA} and {@value #MAXIMUM_MANA}
+     * @param mana        the initial mana points of the Elf; must be between
+     *                    {@value #MINIMUM_MANA} and {@value #MAXIMUM_MANA}
      * @throws IllegalArgumentException if mana is outside the valid range
      */
     public Elf(final String name,
@@ -45,7 +49,8 @@ public class Elf extends Creature
      * Throws an {@link IllegalArgumentException} if the value is invalid.
      *
      * @param mana the mana value to check
-     * @throws IllegalArgumentException if mana is less than {@value #MINIMUM_MANA} or greater than {@value #MAXIMUM_MANA}
+     * @throws IllegalArgumentException if mana is less than
+     *         {@value #MINIMUM_MANA} or greater than {@value #MAXIMUM_MANA}
      */
     private void checkMana(final int mana)
     {
@@ -76,11 +81,14 @@ public class Elf extends Creature
     }
 
     /**
-     * Attempts to cast a spell, reducing mana by {@value #SPELL_COST} and returning the spell's damage.
+     * Attempts to cast a spell, reducing mana by {@value #SPELL_COST}
+     * and returning the spell's damage.
      * If there is not enough mana, a {@link LowManaException} is thrown.
      *
-     * @return the amount of damage dealt by the spell, which is {@value #SPELL_DAMAGE}
-     * @throws LowManaException if the Elf does not have at least {@value #SPELL_COST} mana
+     * @return the amount of damage dealt by the spell, which
+     *         is {@value #SPELL_DAMAGE}
+     * @throws LowManaException if the Elf does not have at least
+     *         {@value #SPELL_COST} mana
      */
     public int castSpell() throws LowManaException
     {
