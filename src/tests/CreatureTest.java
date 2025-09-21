@@ -5,7 +5,7 @@
  * @version 1.0
  */
 public class CreatureTest {
-    public static void main(final String[] args)
+    public static void main(final String[] args) throws LowFirePowerException, LowManaException
     {
         final Creature dragon;
         final Creature elf;
@@ -197,11 +197,81 @@ public class CreatureTest {
                 lotsOfRageOrc.getDetails());
         System.out.println();
 
-        // 4. LowFirePower Exception (Dragon)
+        // 4. LowFirePowerException (Dragon)
         System.out.println("FIREPOWER CHECK");
 
+        System.out.println("Before Dragon details: " +
+                dragonCasted.getDetails());
 
+        try
+        {
+            System.out.println("Cast Firebreath(), damage = " +
+                    dragonCasted.breatheFire());
+        } catch (Exception e)
+        {
+            throw new LowFirePowerException("Low fire power!");
+        }
 
+        System.out.println("After Dragon details: " +
+                dragonCasted.getDetails());
+        System.out.println();
 
+        // 5. LowManaException (Elf)
+        System.out.println("LOW MANA CHECK");
+
+        System.out.println("Before Elf details: " +
+                elfCasted.getDetails());
+
+        try
+        {
+            System.out.println("Cast castSpell(), damage = " +
+                    elfCasted.castSpell());
+            // Cast it 5 more times
+            elfCasted.castSpell();
+            elfCasted.castSpell();
+            elfCasted.castSpell();
+            elfCasted.castSpell();
+            elfCasted.castSpell();
+
+            // Will fail on 6th cast, b/c elf has 0 mana now
+//            elfCasted.castSpell();
+
+        } catch (Exception e)
+        {
+            throw new LowManaException("Low mana!");
+        }
+
+        System.out.println("After Elf details: " +
+                elfCasted.getDetails());
+        System.out.println();
+
+        // Make Creatures fight
+        System.out.println("Orc attacks Dragon!");
+
+        int orcDamage;
+        orcDamage = lotsOfRageOrc.berserk();
+
+        dragon.takeDamage(orcDamage);
+        System.out.println(orcDamage + " damage taken by Dragon!");
+        System.out.println("Dragon HP: " + dragon.getCurrentHealth());
+
+        System.out.println("Orc attacks 4 more times!");
+        orcDamage = 0;
+        orcDamage += lotsOfRageOrc.berserk();
+        orcDamage += lotsOfRageOrc.berserk();
+        orcDamage += lotsOfRageOrc.berserk();
+        orcDamage += lotsOfRageOrc.berserk();
+
+        dragon.takeDamage(orcDamage);
+        System.out.println(orcDamage + " damage taken by Dragon!");
+        System.out.println("Dragon HP: " + dragon.getCurrentHealth());
+
+        System.out.println("Orc attacks 1 more time!");
+        orcDamage = 0;
+        orcDamage += lotsOfRageOrc.berserk();
+
+        dragon.takeDamage(orcDamage);
+        System.out.println(orcDamage + " damage taken by Dragon!");
+        System.out.println("Dragon HP: " + dragon.getCurrentHealth());
     }
 }
