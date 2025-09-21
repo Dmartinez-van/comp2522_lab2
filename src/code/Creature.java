@@ -6,14 +6,11 @@
  */
 public class Creature
 {
-    // We will probably end up making Creature
-    // Abstract. In which case we can copy + paste method functionality
-    // to the children classes.
-
-    private static final int MIN_HEALTH = 0;
-    private static final int MAX_HEALTH = 100;
-    private static final int MIN_DAMAGE = 0;
-    private static final int CURRENT_YEAR = 2025;
+    private static final int MIN_HEALTH         = 0;
+    private static final int MAX_HEALTH         = 100;
+    private static final int MIN_DAMAGE_ALLOWED = 0;
+    private static final int MIN_HEAL_ALLOWED   = 0;
+    private static final int CURRENT_YEAR       = 2025;
 
     private final String name;
     private final Date dateOfBirth;
@@ -43,13 +40,13 @@ public class Creature
 
     private void checkBirthDate(final Date dateOfBirth)
     {
-        /*
-        Add more 'date in future' checks?
-        Would need
-        - year month check
-        - year month day check
-         */
-        final boolean yearCheck = dateOfBirth.getYear() > CURRENT_YEAR;
+        /* Only checking the DOB year against the current year.
+         If we add a method to Date class to get current year, month, and day
+         then we could expand this checker method.
+        */
+        final boolean yearCheck;
+
+        yearCheck = dateOfBirth.getYear() > CURRENT_YEAR;
 
         if (yearCheck)
         {
@@ -77,20 +74,22 @@ public class Creature
 
     /**
      * Creature's health is reduced by damage taken.
-     * Damage taken cannot be below {@value MIN_DAMAGE}.
+     * Damage taken cannot be below {@value MIN_DAMAGE_ALLOWED}.
      * If creature's health goes below {@value MIN_HEALTH},
      * it is set to {@value MIN_HEALTH}.
      * @param damageTaken the amount of damage taken
      */
     public void takeDamage(final int damageTaken)
     {
-        if (damageTaken < MIN_DAMAGE)
+        if (damageTaken < MIN_DAMAGE_ALLOWED)
         {
             throw new DamageExeption("Damage cannot be below " +
-                                      MIN_DAMAGE);
+                    MIN_DAMAGE_ALLOWED);
         }
 
+        // Only declare if valid damage taken
         final int newHealth;
+
         newHealth = health - damageTaken;
 
         if (newHealth < MIN_HEALTH)
@@ -110,9 +109,15 @@ public class Creature
         // check for healAmount exceeding 100
 
         // check for negative heal amount -> throw new HealingException
+        if (healAmount < MIN_HEAL_ALLOWED)
+        {
+            throw new HealingException("Cannot heal less than " +
+                    MIN_HEAL_ALLOWED);
+        }
 
         health += healAmount;
 
+        // Cannot exceed max health
         if (health > MAX_HEALTH)
         {
             health = MAX_HEALTH;
