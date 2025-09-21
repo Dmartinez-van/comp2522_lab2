@@ -1,21 +1,32 @@
 /**
- * Represents a dragon, which is a type of creature with a unique fire power attribute and abilities.
+ * Represents a dragon, which is a type of creature with a unique
+ * fire power attribute and abilities.
  * <p>
- * This class models a dragon's fire power, which is an integer value (unitless) ranging from
- * {@link #MINIMUM_FIRE_POWER} to {@link #MAXIMUM_FIRE_POWER}. The fire power determines the dragon's
- * ability to use its fire breath attack and can be restored up to its maximum value.
+ * This class models a dragon's fire power, which is an integer
+ * value (unitless) ranging from {@link #MINIMUM_FIRE_POWER} to
+ * {@link #MAXIMUM_FIRE_POWER}. The fire power determines the dragon's
+ * ability to use its fire breath attack and can be restored up
+ * to its maximum value.
  * </p>
  * <p>
  * <b>Class-specific data:</b>
  * <ul>
- *     <li><b>firePower</b>: The current fire power level of the dragon (int, unitless, range: {@link #MINIMUM_FIRE_POWER} to {@link #MAXIMUM_FIRE_POWER}).</li>
+ *     <li><b>firePower</b>: The current fire power level of the dragon
+ *     (int, unitless, range: {@link #MINIMUM_FIRE_POWER} to
+ *     {@link #MAXIMUM_FIRE_POWER}).</li>
  * </ul>
  * </p>
  * <p>
  * <b>Class-specific methods:</b>
  * <ul>
- *     <li>{@code int breatheFire()}: Attempts to use the dragon's fire breath, reducing {@code firePower} by {@link #FIRE_POWER_ACTIVATION} and returning {@link #FIRE_BREATH_DAMAGE}. Throws {@code LowFirePowerException} if {@code firePower} is insufficient.</li>
- *     <li>{@code void restoreFirePower(final int amount)}: Restores the dragon's {@code firePower} by the specified amount, not exceeding {@link #MAXIMUM_FIRE_POWER}.</li>
+ *     <li>{@code int breatheFire()}: Attempts to use the dragon's fire breath,
+ *     reducing {@code firePower} by {@link #FIRE_POWER_ACTIVATION} and
+ *     returning {@link #FIRE_BREATH_DAMAGE}.
+ *     Throws {@code LowFirePowerException} if {@code firePower}
+ *     is insufficient.</li>
+ *     <li>{@code void restoreFirePower(final int amount)}: Restores the
+ *     dragon's {@code firePower} by the specified amount, not exceeding
+ *     {@link #MAXIMUM_FIRE_POWER}.</li>
  * </ul>
  * </p>
  *
@@ -24,7 +35,6 @@
  */
 public class Dragon extends Creature
 {
-
     public static final int MINIMUM_FIRE_POWER = 1;
     public static final int MAXIMUM_FIRE_POWER = 100;
     public static final int FIRE_POWER_ACTIVATION = 10;
@@ -32,19 +42,27 @@ public class Dragon extends Creature
 
     private int firePower;
 
-/**
-     * Constructs a new Dragon with the specified name, date of birth, health, and fire power.
+    /**
+     * Constructs a new Dragon with the specified name, date of birth,
+     * health, and fire power.
      * <p>
-     * This constructor initializes a Dragon object by setting its name, date of birth, health, and fire power.
-     * The fire power must be within the range defined by {@link #MINIMUM_FIRE_POWER} and {@link #MAXIMUM_FIRE_POWER}.
-     * If the fire power is outside this range, an {@link IllegalArgumentException} is thrown.
+     * This constructor initializes a Dragon object by setting its name,
+     * date of birth, health, and fire power. The fire power must be within the
+     * range defined by {@link #MINIMUM_FIRE_POWER} and
+     * {@link #MAXIMUM_FIRE_POWER}.
+     * If the fire power is outside this range, an
+     * {@link IllegalArgumentException} is thrown.
      * </p>
      *
      * @param name the name of the dragon as a {@link String}
      * @param dateOfBirth the date of birth of the dragon as a {@link Date}
      * @param health the health value of the dragon as an {@code int}
-     * @param firePower the initial fire power of the dragon as an {@code int}, must be between {@link #MINIMUM_FIRE_POWER} and {@link #MAXIMUM_FIRE_POWER}
-     * @throws IllegalArgumentException if {@code firePower} is less than {@link #MINIMUM_FIRE_POWER} or greater than {@link #MAXIMUM_FIRE_POWER}
+     * @param firePower the initial fire power of the dragon as an {@code int},
+     *                 must be between {@link #MINIMUM_FIRE_POWER} and
+     *                 {@link #MAXIMUM_FIRE_POWER}
+     * @throws IllegalArgumentException if {@code firePower} is less than
+     *                 {@link #MINIMUM_FIRE_POWER} or greater than
+     *                 {@link #MAXIMUM_FIRE_POWER}
      */
     public Dragon(final String name,
                   final Date dateOfBirth,
@@ -59,7 +77,6 @@ public class Dragon extends Creature
 
     private void checkFirePower(final int firePower)
     {
-
         if (firePower < MINIMUM_FIRE_POWER ||
             firePower > MAXIMUM_FIRE_POWER)
         {
@@ -107,13 +124,14 @@ public class Dragon extends Creature
      * Costs {@value FIRE_POWER_ACTIVATION} amount each cast.
      *
      * @return the amount of damage as an int.
-     * @throws LowFirePowerException if firePower is insuffcient for cast cost.
+     * @throws LowFirePowerException if firePower is insufficient for cast cost.
      */
     public int breatheFire() throws LowFirePowerException
     {
         if (firePower < FIRE_POWER_ACTIVATION)
         {
-            throw new LowFirePowerException("Fire power must be at least 10");
+            throw new LowFirePowerException("Fire power must be at least " +
+                    FIRE_POWER_ACTIVATION);
         }
 
         this.firePower -= FIRE_POWER_ACTIVATION;
