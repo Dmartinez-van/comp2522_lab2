@@ -77,7 +77,7 @@ public class Elf extends Creature
     @Override
     public String getDetails()
     {
-        return super.getDetails() + ", Mana: " + mana;
+        return super.getDetails() + "Mana: " + mana + "\n";
     }
 
     /**
