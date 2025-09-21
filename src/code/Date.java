@@ -11,20 +11,18 @@
  */
 public final class Date
 {
-    private static final int MINIMUM_YEAR = 1800;
-    private static final int CURRENT_YEAR = 2025;
 
-    public static final int JANUARY = 1;
-    public static final int FEBRUARY = 2;
-    public static final int MARCH = 3;
-    public static final int APRIL = 4;
-    public static final int MAY = 5;
-    public static final int JUNE = 6;
-    public static final int JULY = 7;
-    public static final int AUGUST = 8;
-    public static final int SEPTEMBER = 9;
-    public static final int OCTOBER = 10;
-    public static final int NOVEMBER = 11;
+    private static final int JANUARY = 1;
+    private static final int FEBRUARY = 2;
+    private static final int MARCH = 3;
+    private static final int APRIL = 4;
+    private static final int MAY = 5;
+    private static final int JUNE = 6;
+    private static final int JULY = 7;
+    private static final int AUGUST = 8;
+    private static final int SEPTEMBER = 9;
+    private static final int OCTOBER = 10;
+    private static final int NOVEMBER = 11;
     private static final int DECEMBER = 12;
 
     private static final int DAYS_IN_JANUARY = 31;
@@ -41,12 +39,6 @@ public final class Date
     private static final int DAYS_IN_NOVEMBER = 30;
     private static final int DAYS_IN_DECEMBER = 31;
 
-    private static final int MINIMUM_DAY_IN_MONTH = 1;
-    private static final int TWENTY_FIRST_CENTURY_START = 2000;
-    private static final int NINETEENTH_CENTURY_START = 1800;
-    private static final int ZERO = 0;
-    private static final int MONTH_INDEX_OFFSET = 1;
-
     private static final String JANUARY_NAME = "January";
     private static final String FEBRUARY_NAME = "February";
     private static final String MARCH_NAME = "March";
@@ -59,6 +51,35 @@ public final class Date
     private static final String OCTOBER_NAME = "October";
     private static final String NOVEMBER_NAME = "November";
     private static final String DECEMBER_NAME = "December";
+
+    private static final int SATURDAY = 0;
+    private static final int SUNDAY = 1;
+    private static final int MONDAY = 2;
+    private static final int TUESDAY = 3;
+    private static final int WEDNESDAY = 4;
+    private static final int THURSDAY = 5;
+    private static final int FRIDAY = 6;
+
+    // Month codes for the day of the week calculation algorithm
+    private static final int MONTH_CODE_JANUARY = 1;
+    private static final int MONTH_CODE_FEBRUARY = 4;
+    private static final int MONTH_CODE_MARCH = 4;
+    private static final int MONTH_CODE_APRIL = 0;
+    private static final int MONTH_CODE_MAY = 2;
+    private static final int MONTH_CODE_JUNE = 5;
+    private static final int MONTH_CODE_JULY = 0;
+    private static final int MONTH_CODE_AUGUST = 3;
+    private static final int MONTH_CODE_SEPTEMBER = 6;
+    private static final int MONTH_CODE_OCTOBER = 1;
+    private static final int MONTH_CODE_NOVEMBER = 4;
+    private static final int MONTH_CODE_DECEMBER = 6;
+
+    private static final int MINIMUM_YEAR = 1800;
+    private static final int CURRENT_YEAR = 2025;
+    private static final int MINIMUM_DAY_IN_MONTH = 1;
+    private static final int TWENTY_FIRST_CENTURY_START = 2000;
+    private static final int NINETEENTH_CENTURY_START = 1800;
+    private static final int ZERO = 0;
 
     private final int day;
     private final int month;
@@ -79,7 +100,7 @@ public final class Date
      * @param month the month of the year; unit: month (1 = January)
      * @param year  the year; unit: year
      * @throws IllegalArgumentException if any parameter is out of valid
-     *              range or does not form a valid date
+     *                                  range or does not form a valid date
      */
     Date(final int day,
          final int month,
@@ -114,7 +135,7 @@ public final class Date
      *
      * @param year the year to validate; unit: year
      * @throws IllegalArgumentException if year is not between
-     *      {@value MINIMUM_YEAR} and {@value CURRENT_YEAR}
+     *                                  {@value MINIMUM_YEAR} and {@value CURRENT_YEAR}
      */
     public static void checkYear(final int year)
     {
@@ -132,7 +153,7 @@ public final class Date
      *
      * @param month the month to validate
      * @throws IllegalArgumentException if month is not between
-     *      {@value JANUARY} and {@value DECEMBER}
+     *                                  {@value JANUARY} and {@value DECEMBER}
      */
     public static void checkMonth(final int month)
     {
@@ -154,7 +175,7 @@ public final class Date
      * @param month the month to validate
      * @param year  the year to validate
      * @throws IllegalArgumentException if day is not valid for the
-     *      given month and year
+     *                                  given month and year
      */
     private static void checkDay(final int day,
                                  final int month,
@@ -183,68 +204,44 @@ public final class Date
         if (month == JANUARY)
         {
             return DAYS_IN_JANUARY;
-        }
-
-        else if (month == FEBRUARY)
+        } else if (month == FEBRUARY)
         {
             if (isLeapYear(year))
             {
                 return DAYS_IN_FEBRUARY_LEAP_YEAR;
             }
             return DAYS_IN_FEBRUARY;
-        }
-
-        else if (month == MARCH)
+        } else if (month == MARCH)
         {
             return DAYS_IN_MARCH;
-        }
-
-        else if (month == APRIL)
+        } else if (month == APRIL)
         {
             return DAYS_IN_APRIL;
-        }
-
-        else if (month == MAY)
+        } else if (month == MAY)
         {
             return DAYS_IN_MAY;
-        }
-
-        else if (month == JUNE)
+        } else if (month == JUNE)
         {
             return DAYS_IN_JUNE;
-        }
-
-        else if (month == JULY)
+        } else if (month == JULY)
         {
             return DAYS_IN_JULY;
-        }
-
-        else if (month == AUGUST)
+        } else if (month == AUGUST)
         {
             return DAYS_IN_AUGUST;
-        }
-
-        else if (month == SEPTEMBER)
+        } else if (month == SEPTEMBER)
         {
             return DAYS_IN_SEPTEMBER;
-        }
-
-        else if (month == OCTOBER)
+        } else if (month == OCTOBER)
         {
             return DAYS_IN_OCTOBER;
-        }
-
-        else if (month == NOVEMBER)
+        } else if (month == NOVEMBER)
         {
             return DAYS_IN_NOVEMBER;
-        }
-
-        else if (month == DECEMBER)
+        } else if (month == DECEMBER)
         {
             return DAYS_IN_DECEMBER;
-        }
-
-        else
+        } else
         {
             throw new IllegalArgumentException("Invalid month: " + month);
         }
@@ -418,33 +415,6 @@ public final class Date
         stepThreeDivision = 4;
         stepSixDivision = 7;
 
-        final int[] monthCodes =
-                {
-                        1, // January
-                        4, // February
-                        4, // March
-                        0, // April
-                        2, // May
-                        5, // June
-                        0, // July
-                        3, // August
-                        6, // September
-                        1, // October
-                        4, // November
-                        6  // December
-                };
-
-        final String[] dayNames =
-                {
-                        "Saturday", // 0
-                        "Sunday",   // 1
-                        "Monday",   // 2
-                        "Tuesday",  // 3
-                        "Wednesday",// 4
-                        "Thursday", // 5
-                        "Friday"    // 6
-                };
-
         int stepZeroValue;
         int stepOneValue;
         int stepTwoValue;
@@ -484,13 +454,143 @@ public final class Date
                         day;
 
         stepFiveValue = stepFourValue +
-                monthCodes[month - MONTH_INDEX_OFFSET];
+                getMonthCode(month);
 
         stepSixValue = stepFiveValue % stepSixDivision;
 
-        finalValue = dayNames[stepSixValue];
+        finalValue = getDayOfWeekName(stepSixValue);
 
         return finalValue;
+    }
+
+    /**
+     * Returns the month code for the specified month.
+     * <p>
+     * The month code is used in the day of the week calculation algorithm.
+     * The mapping is as follows:
+     * <ul>
+     *   <li>{@value #JANUARY} = {@value #MONTH_CODE_JANUARY}</li>
+     *   <li>{@value #FEBRUARY} = {@value #MONTH_CODE_FEBRUARY}</li>
+     *   <li>{@value #MARCH} = {@value #MONTH_CODE_MARCH}</li>
+     *   <li>{@value #APRIL} = {@value #MONTH_CODE_APRIL}</li>
+     *   <li>{@value #MAY} = {@value #MONTH_CODE_MAY}</li>
+     *   <li>{@value #JUNE} = {@value #MONTH_CODE_JUNE}</li>
+     *   <li>{@value #JULY} = {@value #MONTH_CODE_JULY}</li>
+     *   <li>{@value #AUGUST} = {@value #MONTH_CODE_AUGUST}</li>
+     *   <li>{@value #SEPTEMBER} = {@value #MONTH_CODE_SEPTEMBER}</li>
+     *   <li>{@value #OCTOBER} = {@value #MONTH_CODE_OCTOBER}</li>
+     *   <li>{@value #NOVEMBER} = {@value #MONTH_CODE_NOVEMBER}</li>
+     *   <li>{@value #DECEMBER} = {@value #MONTH_CODE_DECEMBER}</li>
+     * </ul>
+     * </p>
+     *
+     * @param month the month to get the code for; unit: month (1 = January)
+     * @return the month code as an int
+     * @throws IllegalArgumentException if the month is not valid
+     */
+    private int getMonthCode(final int month)
+    {
+        if (month == JANUARY)
+        {
+            return MONTH_CODE_JANUARY;
+        }
+        if (month == FEBRUARY)
+        {
+            return MONTH_CODE_FEBRUARY;
+        }
+        if (month == MARCH)
+        {
+            return MONTH_CODE_MARCH;
+        }
+        if (month == APRIL)
+        {
+            return MONTH_CODE_APRIL;
+        }
+        if (month == MAY)
+        {
+            return MONTH_CODE_MAY;
+        }
+        if (month == JUNE)
+        {
+            return MONTH_CODE_JUNE;
+        }
+        if (month == JULY)
+        {
+            return MONTH_CODE_JULY;
+        }
+        if (month == AUGUST)
+        {
+            return MONTH_CODE_AUGUST;
+        }
+        if (month == SEPTEMBER)
+        {
+            return MONTH_CODE_SEPTEMBER;
+        }
+        if (month == OCTOBER)
+        {
+            return MONTH_CODE_OCTOBER;
+        }
+        if (month == NOVEMBER)
+        {
+            return MONTH_CODE_NOVEMBER;
+        }
+        if (month == DECEMBER)
+        {
+            return MONTH_CODE_DECEMBER;
+        }
+        throw new IllegalArgumentException("Invalid month: " + month);
+    }
+
+    /**
+     * Returns the name of the day of the week corresponding to the provided day index.
+     * <p>
+     * The mapping is as follows:
+     * <ul>
+     *   <li>0 = "Saturday"</li>
+     *   <li>1 = "Sunday"</li>
+     *   <li>2 = "Monday"</li>
+     *   <li>3 = "Tuesday"</li>
+     *   <li>4 = "Wednesday"</li>
+     *   <li>5 = "Thursday"</li>
+     *   <li>6 = "Friday"</li>
+     * </ul>
+     * </p>
+     *
+     * @param dayIndex the index of the day; unit: day (0 = Saturday, 1 = Sunday, ..., 6 = Friday)
+     * @return the name of the day of the week as a String
+     * @throws IllegalArgumentException if the day index is not between 0 and 6, inclusive
+     */
+    private String getDayOfWeekName(final int dayIndex)
+    {
+        if (dayIndex == SATURDAY)
+        {
+            return "Saturday";
+        }
+        if (dayIndex == SUNDAY)
+        {
+            return "Sunday";
+        }
+        if (dayIndex == MONDAY)
+        {
+            return "Monday";
+        }
+        if (dayIndex == TUESDAY)
+        {
+            return "Tuesday";
+        }
+        if (dayIndex == WEDNESDAY)
+        {
+            return "Wednesday";
+        }
+        if (dayIndex == THURSDAY)
+        {
+            return "Thursday";
+        }
+        if (dayIndex == FRIDAY)
+        {
+            return "Friday";
+        }
+        throw new IllegalArgumentException("Invalid day index: " + dayIndex);
     }
 
 
