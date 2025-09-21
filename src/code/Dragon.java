@@ -65,6 +65,7 @@ public class Dragon extends Creature
         {
             final StringBuilder errorMessage;
             errorMessage = new StringBuilder();
+
             errorMessage.append("Fire power must be between ");
             errorMessage.append(MINIMUM_FIRE_POWER);
             errorMessage.append(" and ");
@@ -92,6 +93,7 @@ public class Dragon extends Creature
     {
         final StringBuilder detailsBuilder;
         detailsBuilder = new StringBuilder();
+
         detailsBuilder.append(super.getDetails());
         detailsBuilder.append("Fire Power: ");
         detailsBuilder.append(firePower);
