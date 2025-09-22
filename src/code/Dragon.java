@@ -1,9 +1,12 @@
 /**
- * Represents a dragon, which is a type of creature with a unique firepower attribute and abilities.
+ * Represents a dragon, which is a type of creature with a unique
+ * firepower attribute and abilities.
  * <p>
- * This class models a dragon's firepower, which is an integer value (unitless) ranging from
- * {@link #MINIMUM_FIRE_POWER} to {@link #MAXIMUM_FIRE_POWER}. The firepower determines the dragon's
- * ability to use its fire breath attack and can be restored up to its maximum value.
+ * This class models a dragon's firepower, which is an integer
+ * value (unitless) ranging from
+ * {@link #MINIMUM_FIRE_POWER} to {@link #MAXIMUM_FIRE_POWER}.
+ * The firepower determines the dragon's ability to use its fire breath attack
+ * and can be restored up to its maximum value.
  * This class models a dragon's firepower, which is an integer
  * value (unitless) ranging from {@link #MINIMUM_FIRE_POWER} to
  * {@link #MAXIMUM_FIRE_POWER}. The firepower determines the dragon's
@@ -13,7 +16,9 @@
  * <p>
  * <b>Class-specific data:</b>
  * <ul>
- *     <li><b>firePower</b>: The current firepower level of the dragon (int, unitless, range: {@link #MINIMUM_FIRE_POWER} to {@link #MAXIMUM_FIRE_POWER}).</li>
+ *     <li><b>firePower</b>: The current firepower level of the dragon
+ *     (int, unitless, range: {@link #MINIMUM_FIRE_POWER} to
+ *     {@link #MAXIMUM_FIRE_POWER}).</li>
  *     <li><b>firePower</b>: The current firepower level of the dragon
  *     (int, unitless, range: {@link #MINIMUM_FIRE_POWER} to
  *     {@link #MAXIMUM_FIRE_POWER}).</li>
@@ -60,8 +65,13 @@ public class Dragon extends Creature
      * @param name        the name of the dragon as a {@link String}
      * @param dateOfBirth the date of birth of the dragon as a {@link Date}
      * @param health      the health value of the dragon as an {@code int}
-     * @param firePower   the initial fire power of the dragon as an {@code int}, must be between {@link #MINIMUM_FIRE_POWER} and {@link #MAXIMUM_FIRE_POWER}
-     * @throws IllegalArgumentException if {@code firePower} is less than {@link #MINIMUM_FIRE_POWER} or greater than {@link #MAXIMUM_FIRE_POWER}
+     * @param firePower   the initial fire power of the dragon as an
+     *                    {@code int}, must be between
+     *                    {@link #MINIMUM_FIRE_POWER} and
+     *                    {@link #MAXIMUM_FIRE_POWER}
+     * @throws IllegalArgumentException if {@code firePower} is less than
+     *                                  {@link #MINIMUM_FIRE_POWER} or greater
+     *                                  than {@link #MAXIMUM_FIRE_POWER}
      * @param health the health value of the dragon as an {@code int}
      * @param firePower the initial fire power of the dragon as an {@code int},
      *                 must be between {@link #MINIMUM_FIRE_POWER} and
