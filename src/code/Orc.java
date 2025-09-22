@@ -8,6 +8,7 @@ public class Orc extends Creature
      * @version 1.0
      */
 
+    public static final int ZERO_RAGE = 0;
     private static final int RAGE_INCREASE_POINTS = 5;
     private static final int MIN_RAGE_POINTS = 5;
     private static final int RAGE_THRESHOLD_POINTS = 20;
@@ -25,16 +26,19 @@ public class Orc extends Creature
      * @param rage        the initial rage of the orc, must be non-negative
      * @throws IllegalArgumentException if any parameter is invalid
      */
-    public Orc(final String name, final Date dateOfBirth, final int health, final int rage)
+    public Orc(final String name,
+               final Date dateOfBirth,
+               final int health,
+               final int rage)
     {
         super(name, dateOfBirth, health);
         checkRage(rage);
         this.rage = rage;
     }
 
-    private void checkRage(int rage)
+    private void checkRage(final int rage)
     {
-        if (rage < 0)
+        if (rage < ZERO_RAGE)
         {
             throw new IllegalArgumentException("Rage must be non-negative.");
         }
@@ -60,20 +64,18 @@ public class Orc extends Creature
      * ({@value DAMAGE_DOUBLE_HP_POINTS} health points) to the target creature.
      * Otherwise, the orc deals normal damage ({@value DAMAGE_NORMAL_HP_POINTS} health points).
      * <p>
-     * The rage value is immutable in this implementation; to allow rage to increase, remove the final modifier.
      *
-     * @throws LowRageException         if the resulting rage is less than {@value MIN_RAGE_POINTS}
-     * @throws IllegalArgumentException if targetCreature is null
+     * @throws LowRageException if the resulting rage is less than {@value MIN_RAGE_POINTS}
      */
     public final int berserk() throws LowRageException
     {
 
-        final int newRage = this.rage + 5;
-        if (newRage < 5)
+        final int newRage = this.rage + RAGE_INCREASE_POINTS;
+        if (newRage < MIN_RAGE_POINTS)
         {
             throw new LowRageException("Rage is too low to go berserk.");
         }
-        if (newRage > 20)
+        if (newRage > RAGE_THRESHOLD_POINTS)
         {
             return DAMAGE_DOUBLE_HP_POINTS;
         } else

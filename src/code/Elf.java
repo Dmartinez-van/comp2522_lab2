@@ -65,7 +65,7 @@ public class Elf extends Creature
     }
 
     /**
-     * Returns a string containing the details of the Elf, including mana.
+     * Returns the details of the Elf, including mana.
      *
      * @return a string with the Elf's details and current mana
      */
@@ -98,7 +98,7 @@ public class Elf extends Creature
      * Restores the Elf's mana by the specified amount.
      * Mana will not exceed {@value #MAXIMUM_MANA} after restoration.
      *
-     * @param amount the amount of mana to restore
+     * @param amount amount of mana to restore
      */
     public void restoreMana(final int amount)
     {

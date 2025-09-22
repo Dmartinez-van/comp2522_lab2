@@ -1,14 +1,14 @@
 /**
- * Represents a dragon, which is a type of creature with a unique fire power attribute and abilities.
+ * Represents a dragon, which is a type of creature with a unique firepower attribute and abilities.
  * <p>
- * This class models a dragon's fire power, which is an integer value (unitless) ranging from
- * {@link #MINIMUM_FIRE_POWER} to {@link #MAXIMUM_FIRE_POWER}. The fire power determines the dragon's
+ * This class models a dragon's firepower, which is an integer value (unitless) ranging from
+ * {@link #MINIMUM_FIRE_POWER} to {@link #MAXIMUM_FIRE_POWER}. The firepower determines the dragon's
  * ability to use its fire breath attack and can be restored up to its maximum value.
  * </p>
  * <p>
  * <b>Class-specific data:</b>
  * <ul>
- *     <li><b>firePower</b>: The current fire power level of the dragon (int, unitless, range: {@link #MINIMUM_FIRE_POWER} to {@link #MAXIMUM_FIRE_POWER}).</li>
+ *     <li><b>firePower</b>: The current firepower level of the dragon (int, unitless, range: {@link #MINIMUM_FIRE_POWER} to {@link #MAXIMUM_FIRE_POWER}).</li>
  * </ul>
  * </p>
  * <p>
@@ -32,7 +32,7 @@ public class Dragon extends Creature
 
     private int firePower;
 
-/**
+    /**
      * Constructs a new Dragon with the specified name, date of birth, health, and fire power.
      * <p>
      * This constructor initializes a Dragon object by setting its name, date of birth, health, and fire power.
@@ -40,10 +40,10 @@ public class Dragon extends Creature
      * If the fire power is outside this range, an {@link IllegalArgumentException} is thrown.
      * </p>
      *
-     * @param name the name of the dragon as a {@link String}
+     * @param name        the name of the dragon as a {@link String}
      * @param dateOfBirth the date of birth of the dragon as a {@link Date}
-     * @param health the health value of the dragon as an {@code int}
-     * @param firePower the initial fire power of the dragon as an {@code int}, must be between {@link #MINIMUM_FIRE_POWER} and {@link #MAXIMUM_FIRE_POWER}
+     * @param health      the health value of the dragon as an {@code int}
+     * @param firePower   the initial fire power of the dragon as an {@code int}, must be between {@link #MINIMUM_FIRE_POWER} and {@link #MAXIMUM_FIRE_POWER}
      * @throws IllegalArgumentException if {@code firePower} is less than {@link #MINIMUM_FIRE_POWER} or greater than {@link #MAXIMUM_FIRE_POWER}
      */
     public Dragon(final String name,
@@ -61,7 +61,7 @@ public class Dragon extends Creature
     {
 
         if (firePower < MINIMUM_FIRE_POWER ||
-            firePower > MAXIMUM_FIRE_POWER)
+                firePower > MAXIMUM_FIRE_POWER)
         {
             final StringBuilder errorMessage;
             errorMessage = new StringBuilder();
@@ -77,14 +77,7 @@ public class Dragon extends Creature
     }
 
     /**
-     * Returns the dragon's details.
-     * <ul>
-     *     <li>Name</li>
-     *     <li>Date of birth</li>
-     *     <li>Age</li>
-     *     <li>Health</li>
-     *     <li>Fire Power</li>
-     * </ul>
+     * Returns the details of the dragon, including its firepower.
      *
      * @return the dragon's details
      */
@@ -107,7 +100,7 @@ public class Dragon extends Creature
      * Costs {@value FIRE_POWER_ACTIVATION} amount each cast.
      *
      * @return the amount of damage as an int.
-     * @throws LowFirePowerException if firePower is insuffcient for cast cost.
+     * @throws LowFirePowerException if firePower is insufficient for cast cost.
      */
     public int breatheFire() throws LowFirePowerException
     {

@@ -11,6 +11,9 @@
  */
 public final class Date
 {
+    private static final int SHORT_LEAP_YEARS = 4;
+    private static final int MODERATE_LEAP_YEARS = 100;
+    private static final int LONG_LEAP_YEARS = 400;
 
     private static final int JANUARY = 1;
     private static final int FEBRUARY = 2;
@@ -99,8 +102,7 @@ public final class Date
      * @param day   the day of the month; unit: day
      * @param month the month of the year; unit: month (1 = January)
      * @param year  the year; unit: year
-     * @throws IllegalArgumentException if any parameter is out of valid
-     *                                  range or does not form a valid date
+     * @throws IllegalArgumentException if any parameter is out of valid range or does not form a valid date
      */
     Date(final int day,
          final int month,
@@ -252,30 +254,23 @@ public final class Date
      * <p>
      * A year is a leap year if:
      * <ul>
-     *   <li>It is divisible by 4, AND</li>
-     *   <li>It is not divisible by 100, OR</li>
-     *   <li>It is divisible by 400</li>
+     *   <li>It is divisible by {@value SHORT_LEAP_YEARS}, AND</li>
+     *   <li>It is not divisible by {@value MODERATE_LEAP_YEARS}, OR</li>
+     *   <li>It is divisible by {@value LONG_LEAP_YEARS}</li>
      * </ul>
      * </p>
      *
-     * @param year the year to check; unit: year
+     * @param year the year to check
      * @return true if the year is a leap year, false otherwise
      */
     public static boolean isLeapYear(final int year)
     {
-        final int shortLeapYears;
-        final int moderateLeapYears;
-        final int longLeapYears;
 
         boolean leapYear;
 
-        shortLeapYears = 4;
-        moderateLeapYears = 100;
-        longLeapYears = 400;
-
-        leapYear = (year % shortLeapYears == ZERO);
-        leapYear = (leapYear && year % moderateLeapYears != ZERO);
-        leapYear = (leapYear || year % longLeapYears == ZERO);
+        leapYear = (year % SHORT_LEAP_YEARS == ZERO);
+        leapYear = (leapYear && year % MODERATE_LEAP_YEARS != ZERO);
+        leapYear = (leapYear || year % LONG_LEAP_YEARS == ZERO);
 
         return leapYear;
     }
@@ -293,7 +288,7 @@ public final class Date
     /**
      * Gets the month of the year for this date.
      *
-     * @return the month of the year such as
+     * @return the month of the year
      */
     public int getMonth()
     {
@@ -352,7 +347,7 @@ public final class Date
     /**
      * Gets the year for this date.
      *
-     * @return the year; unit: year
+     * @return the year
      */
     public int getYear()
     {
@@ -396,7 +391,6 @@ public final class Date
      */
     public String getDayOfTheWeek()
     {
-
         final int stepZeroConstantJanFebLeapYear;
         final int stepZeroConstant2000s;
         final int stepZeroConstant1800s;
