@@ -1,16 +1,16 @@
+/**
+ * Represents an Orc, a type of Creature with a rage attribute.
+ * Provides methods to access details and perform berserk attacks.
+ *
+ * @author Daniel Do, David Martinez
+ * @version 1.0
+ */
 public class Orc extends Creature
 {
-    /**
-     * Represents an Orc, a type of Creature with a rage attribute.
-     * Provides methods to access details and perform berserk attacks.
-     *
-     * @author Daniel Do, David Martinez
-     * @version 1.0
-     */
-
-    public static final int ZERO_RAGE = 0;
-    private static final int RAGE_INCREASE_POINTS = 5;
-    private static final int MIN_RAGE_POINTS = 5;
+    private static final int BERSERK_INCREASE_RAGE_POINTS = 5;
+    private static final int BERSERK_COST = 5;
+    private static final int MIN_RAGE_POINTS = 0;
+    private static final int MAX_RAGE_POINTS = 30;
     private static final int RAGE_THRESHOLD_POINTS = 20;
     private static final int DAMAGE_NORMAL_HP_POINTS = 15;
     private static final int DAMAGE_DOUBLE_HP_POINTS = 30;
@@ -38,9 +38,10 @@ public class Orc extends Creature
 
     private void checkRage(final int rage)
     {
-        if (rage < ZERO_RAGE)
+        if (rage < MIN_RAGE_POINTS)
         {
-            throw new IllegalArgumentException("Rage must be non-negative.");
+            throw new IllegalArgumentException("Rage must be greater than " +
+                    MIN_RAGE_POINTS);
         }
     }
 
@@ -52,33 +53,54 @@ public class Orc extends Creature
     @Override
     public final String getDetails()
     {
-        return super.getDetails() + ", Rage: " + rage;
+        return super.getDetails() + "Rage: " + rage + "\n";
     }
 
     /**
      * Performs a berserk attack on the specified target creature.
      * <p>
-     * This method increases the orc's rage by {@value RAGE_INCREASE_POINTS} points.
-     * If the resulting rage is less than {@value MIN_RAGE_POINTS}, a LowRageException is thrown.
-     * If the resulting rage exceeds {@value RAGE_THRESHOLD_POINTS}, the orc deals double damage
-     * ({@value DAMAGE_DOUBLE_HP_POINTS} health points) to the target creature.
-     * Otherwise, the orc deals normal damage ({@value DAMAGE_NORMAL_HP_POINTS} health points).
-     * <p>
+     *     Method executes in the following order:
+     *     <ol>
+     *         <li>Checks for sufficient rage, berserk() costs
+     *         {@value BERSERK_COST}.</li>
+     *         <li>If insufficient rage, throws new error.</li>
+     *         <li>If successful, increases rage by
+     *         {@value BERSERK_INCREASE_RAGE_POINTS}</li>
+     *         <li>If the resulting rage exceeds {@value RAGE_THRESHOLD_POINTS},
+     *         the orc deals double damage</li>
+     *         <li></li>
+     *     </ol>
      *
-     * @throws LowRageException if the resulting rage is less than {@value MIN_RAGE_POINTS}
+     * ({@value DAMAGE_DOUBLE_HP_POINTS} health points) to the target creature.
+     * Otherwise, the orc deals normal damage
+     * ({@value DAMAGE_NORMAL_HP_POINTS} health points).
+     * <p>
+     * The rage value is immutable in this implementation; to allow rage to
+     * increase, remove the final modifier.
+     *
+     * @throws LowRageException if the resulting rage is less
+     *                          than {@value BERSERK_COST}
+     * @return the damage the orc will deal.
      */
     public final int berserk() throws LowRageException
     {
-
-        final int newRage = this.rage + RAGE_INCREASE_POINTS;
-        if (newRage < MIN_RAGE_POINTS)
+        if (rage < BERSERK_COST)
         {
             throw new LowRageException("Rage is too low to go berserk.");
         }
-        if (newRage > RAGE_THRESHOLD_POINTS)
+
+        rage += BERSERK_INCREASE_RAGE_POINTS;
+
+        if (rage > MAX_RAGE_POINTS)
+        {
+            rage = MAX_RAGE_POINTS;
+        }
+
+        if (rage > RAGE_THRESHOLD_POINTS)
         {
             return DAMAGE_DOUBLE_HP_POINTS;
-        } else
+        }
+        else
         {
             return DAMAGE_NORMAL_HP_POINTS;
         }
