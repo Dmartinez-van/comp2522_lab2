@@ -9,17 +9,24 @@
  */
 public class Creature
 {
-    private static final int MIN_HEALTH = 0;
-    private static final int MAX_HEALTH = 100;
+    private static final int MIN_HEALTH         = 0;
+    private static final int MAX_HEALTH         = 100;
     private static final int MIN_DAMAGE_ALLOWED = 0;
-    private static final int MIN_HEAL_ALLOWED = 0;
-    private static final int CURRENT_YEAR = 2025;
+    private static final int MIN_HEAL_ALLOWED   = 0;
+    private static final int CURRENT_YEAR       = 2025;
 
     private final String name;
     private final Date dateOfBirth;
 
     private int health;
 
+    /**
+     * Constructs a Creature with the specified name, date of birth, and health.
+     *
+     * @param name        the name of the creature
+     * @param dateOfBirth the date of birth of the creature
+     * @param health      the initial health of the creature
+     */
     Creature(final String name,
              final Date dateOfBirth,
              final int health)
@@ -43,10 +50,6 @@ public class Creature
 
     private void checkBirthDate(final Date dateOfBirth)
     {
-        /* Only checking the DOB year against the current year.
-         If we add a method to Date class to get current year, month, and day
-         then we could expand this checker method.
-        */
         final boolean yearCheck;
 
         yearCheck = dateOfBirth.getYear() > CURRENT_YEAR;
@@ -61,7 +64,7 @@ public class Creature
     {
         if (health < MIN_HEALTH || health > MAX_HEALTH)
         {
-            StringBuilder messageBuilder;
+            final StringBuilder messageBuilder;
 
             messageBuilder = new StringBuilder("Health must be between ");
 
