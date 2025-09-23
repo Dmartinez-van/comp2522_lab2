@@ -1,18 +1,18 @@
 /**
- * A Creature class
+ * Representation of a creature with a name, date of birth, and health.
+ * Creatures can take damage and be healed.
+ * Creatures can check if they are alive and get their age in years.
+ * Creatures can provide their details in a formatted string.
  *
  * @author David Martinez, Daniel Do
  * @version 1.0
  */
 public class Creature
 {
-    // We will probably end up making Creature
-    // Abstract. In which case we can copy + paste method functionality
-    // to the children classes.
-
     private static final int MIN_HEALTH = 0;
     private static final int MAX_HEALTH = 100;
-    private static final int MIN_DAMAGE = 0;
+    private static final int MIN_DAMAGE_ALLOWED = 0;
+    private static final int MIN_HEAL_ALLOWED = 0;
     private static final int CURRENT_YEAR = 2025;
 
     private final String name;
@@ -43,13 +43,13 @@ public class Creature
 
     private void checkBirthDate(final Date dateOfBirth)
     {
-        /*
-        Add more 'date in future' checks?
-        Would need
-        - year month check
-        - year month day check
-         */
-        final boolean yearCheck = dateOfBirth.getYear() > CURRENT_YEAR;
+        /* Only checking the DOB year against the current year.
+         If we add a method to Date class to get current year, month, and day
+         then we could expand this checker method.
+        */
+        final boolean yearCheck;
+
+        yearCheck = dateOfBirth.getYear() > CURRENT_YEAR;
 
         if (yearCheck)
         {
@@ -61,13 +61,21 @@ public class Creature
     {
         if (health < MIN_HEALTH || health > MAX_HEALTH)
         {
-            throw new IllegalArgumentException("Health cannot exceed" +
-                                               " min or max");
+            StringBuilder messageBuilder;
+
+            messageBuilder = new StringBuilder("Health must be between ");
+
+            messageBuilder.append(MIN_HEALTH);
+            messageBuilder.append(" and ");
+            messageBuilder.append(MAX_HEALTH);
+
+            throw new IllegalArgumentException(messageBuilder.toString());
         }
     }
 
     /**
      * Checks if creature is alive or not (boolean)
+     *
      * @return true if health is greater than {@value MIN_HEALTH}
      */
     public boolean isAlive()
@@ -77,23 +85,24 @@ public class Creature
 
     /**
      * Creature's health is reduced by damage taken.
-     * Damage taken cannot be below {@value MIN_DAMAGE}.
+     * Damage taken cannot be below {@value MIN_DAMAGE_ALLOWED}.
      * If creature's health goes below {@value MIN_HEALTH},
      * it is set to {@value MIN_HEALTH}.
+     *
      * @param damageTaken the amount of damage taken
      */
     public void takeDamage(final int damageTaken)
     {
-        if (damageTaken < MIN_DAMAGE)
+        if (damageTaken < MIN_DAMAGE_ALLOWED)
         {
             throw new DamageExeption("Damage cannot be below " +
-                                      MIN_DAMAGE);
+                    MIN_DAMAGE_ALLOWED);
         }
 
-        final int newHealth;
-        newHealth = health - damageTaken;
+        health -= damageTaken;
 
-        if (newHealth < MIN_HEALTH)
+        // This okay?
+        if (health < MIN_HEALTH)
         {
             health = MIN_HEALTH;
         }
@@ -103,16 +112,20 @@ public class Creature
      * Heals a creature by a non-negative amount.
      * Will set Creature's health to {@value MAX_HEALTH} if
      * they were to be healed past the max ({@value MAX_HEALTH}).
+     *
      * @param healAmount the amount to heal
      */
     public void heal(final int healAmount)
     {
-        // check for healAmount exceeding 100
-
-        // check for negative heal amount -> throw new HealingException
+        if (healAmount < MIN_HEAL_ALLOWED)
+        {
+            throw new HealingException("Cannot heal less than " +
+                    MIN_HEAL_ALLOWED);
+        }
 
         health += healAmount;
 
+        // Cannot exceed max health
         if (health > MAX_HEALTH)
         {
             health = MAX_HEALTH;
@@ -121,15 +134,26 @@ public class Creature
 
     /**
      * Calculates the creatures age in years based on {@value CURRENT_YEAR}.
+     *
      * @return the age of creature; unit: years
      */
     public int getAgeYears()
     {
         final int ageYears;
 
-        ageYears= dateOfBirth.getYear() - CURRENT_YEAR;
+        ageYears = CURRENT_YEAR - dateOfBirth.getYear();
 
         return ageYears;
+    }
+
+    /**
+     * Gets creature's current health.
+     *
+     * @return current health.
+     */
+    public int getCurrentHealth()
+    {
+        return health;
     }
 
     /**
@@ -140,22 +164,32 @@ public class Creature
      *     <li>Age</li>
      *     <li>Health</li>
      * </ul>
+     *
      * @return a string message of the creature's details
      */
     public String getDetails()
     {
         final int age;
         final String finalMessage;
-        String messageBuilder;
+
+        StringBuilder messageBuilder;
+        messageBuilder = new StringBuilder();
 
         age = getAgeYears();
 
-        messageBuilder = "Name: " + name + "\n";
-        messageBuilder += "Date of birth: " + dateOfBirth + "\n";
-        messageBuilder += "Age: " + age + "\n";
-        messageBuilder += "Health: " + health + "\n";
-
-        finalMessage = messageBuilder;
+        messageBuilder.append("Name: ");
+        messageBuilder.append(name);
+        messageBuilder.append("\n");
+        messageBuilder.append("Date of birth: ");
+        messageBuilder.append(dateOfBirth.getYYYYMMDD());
+        messageBuilder.append("\n");
+        messageBuilder.append("Age: ");
+        messageBuilder.append(age);
+        messageBuilder.append("\n");
+        messageBuilder.append("Health: ");
+        messageBuilder.append(health);
+        messageBuilder.append("\n");
+        finalMessage = messageBuilder.toString();
 
         return finalMessage;
     }

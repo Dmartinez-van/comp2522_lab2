@@ -11,18 +11,78 @@
  */
 public final class Date
 {
+    private static final int SHORT_LEAP_YEARS = 4;
+    private static final int MODERATE_LEAP_YEARS = 100;
+    private static final int LONG_LEAP_YEARS = 400;
+
+    private static final int JANUARY = 1;
+    private static final int FEBRUARY = 2;
+    private static final int MARCH = 3;
+    private static final int APRIL = 4;
+    private static final int MAY = 5;
+    private static final int JUNE = 6;
+    private static final int JULY = 7;
+    private static final int AUGUST = 8;
+    private static final int SEPTEMBER = 9;
+    private static final int OCTOBER = 10;
+    private static final int NOVEMBER = 11;
+    private static final int DECEMBER = 12;
+
+    private static final int DAYS_IN_JANUARY = 31;
+    private static final int DAYS_IN_FEBRUARY = 28;
+    private static final int DAYS_IN_FEBRUARY_LEAP_YEAR = 29;
+    private static final int DAYS_IN_MARCH = 31;
+    private static final int DAYS_IN_APRIL = 30;
+    private static final int DAYS_IN_MAY = 31;
+    private static final int DAYS_IN_JUNE = 30;
+    private static final int DAYS_IN_JULY = 31;
+    private static final int DAYS_IN_AUGUST = 31;
+    private static final int DAYS_IN_SEPTEMBER = 30;
+    private static final int DAYS_IN_OCTOBER = 31;
+    private static final int DAYS_IN_NOVEMBER = 30;
+    private static final int DAYS_IN_DECEMBER = 31;
+
+    private static final String JANUARY_NAME = "January";
+    private static final String FEBRUARY_NAME = "February";
+    private static final String MARCH_NAME = "March";
+    private static final String APRIL_NAME = "April";
+    private static final String MAY_NAME = "May";
+    private static final String JUNE_NAME = "June";
+    private static final String JULY_NAME = "July";
+    private static final String AUGUST_NAME = "August";
+    private static final String SEPTEMBER_NAME = "September";
+    private static final String OCTOBER_NAME = "October";
+    private static final String NOVEMBER_NAME = "November";
+    private static final String DECEMBER_NAME = "December";
+
+    private static final int SATURDAY = 0;
+    private static final int SUNDAY = 1;
+    private static final int MONDAY = 2;
+    private static final int TUESDAY = 3;
+    private static final int WEDNESDAY = 4;
+    private static final int THURSDAY = 5;
+    private static final int FRIDAY = 6;
+
+    // Month codes for the day of the week calculation algorithm
+    private static final int MONTH_CODE_JANUARY = 1;
+    private static final int MONTH_CODE_FEBRUARY = 4;
+    private static final int MONTH_CODE_MARCH = 4;
+    private static final int MONTH_CODE_APRIL = 0;
+    private static final int MONTH_CODE_MAY = 2;
+    private static final int MONTH_CODE_JUNE = 5;
+    private static final int MONTH_CODE_JULY = 0;
+    private static final int MONTH_CODE_AUGUST = 3;
+    private static final int MONTH_CODE_SEPTEMBER = 6;
+    private static final int MONTH_CODE_OCTOBER = 1;
+    private static final int MONTH_CODE_NOVEMBER = 4;
+    private static final int MONTH_CODE_DECEMBER = 6;
 
     private static final int MINIMUM_YEAR = 1800;
     private static final int CURRENT_YEAR = 2025;
-    private static final int JANUARY_MONTH_CODE = 1;
-    private static final int DECEMBER = 12;
     private static final int MINIMUM_DAY_IN_MONTH = 1;
-    private static final int MAX_DAYS_IN_FEBRUARY_LEAP_YEAR = 29;
     private static final int TWENTY_FIRST_CENTURY_START = 2000;
     private static final int NINETEENTH_CENTURY_START = 1800;
     private static final int ZERO = 0;
-    private static final int MONTH_INDEX_OFFSET = 1;
-    private static final String JANUARY_NAME = "January";
 
     private final int day;
     private final int month;
@@ -31,10 +91,12 @@ public final class Date
     /**
      * Constructs a new Date object with the specified day, month, and year.
      * <p>
-     * Validates the provided year, month, and day values to ensure they represent a valid date
-     * according to the Gregorian calendar. The year must be between MINIMUM_YEAR and CURRENT_YEAR,
-     * the month must be between MINIMUM_MONTH and MAXIMUM_MONTH, and the day must be valid for the
-     * specified month and year (including leap year handling for February).
+     * Validates the provided year, month, and day values to ensure they
+     * represent a valid date according to the Gregorian calendar.
+     * The year must be between {@value MINIMUM_YEAR} and {@value CURRENT_YEAR},
+     * the month must be between {@value JANUARY} and {@value DECEMBER},
+     * and the day must be valid for the specified month and year
+     * (including leap year handling for February).
      * </p>
      *
      * @param day   the day of the month; unit: day
@@ -42,10 +104,13 @@ public final class Date
      * @param year  the year; unit: year
      * @throws IllegalArgumentException if any parameter is out of valid range or does not form a valid date
      */
-    Date(final int day, final int month, final int year) {
-        Validator.checkLessThanZero(year);
-        Validator.checkLessThanZero(month);
-        Validator.checkLessThanZero(day);
+    Date(final int day,
+         final int month,
+         final int year)
+    {
+        checkLessThanZero(year);
+        checkLessThanZero(month);
+        checkLessThanZero(day);
 
         checkYear(year);
         checkMonth(month);
@@ -56,62 +121,131 @@ public final class Date
         this.year = year;
     }
 
+    private static void checkLessThanZero(final int number)
+    {
+        if (number <= ZERO)
+        {
+            throw new IllegalArgumentException("Value cannot be negative" +
+                    " or non-zero.");
+        }
+    }
+
     /**
      * Checks if the provided year is within the valid range.
      * The valid range is between MINIMUM_YEAR and CURRENT_YEAR, inclusive.
      * Throws IllegalArgumentException if the year is out of bounds.
      *
      * @param year the year to validate; unit: year
-     * @throws IllegalArgumentException if year is not between MINIMUM_YEAR and CURRENT_YEAR
+     * @throws IllegalArgumentException if year is not between
+     *                                  {@value MINIMUM_YEAR} and {@value CURRENT_YEAR}
      */
-    public static void checkYear(final int year) {
-        if (year < MINIMUM_YEAR || year > CURRENT_YEAR) {
-            throw new IllegalArgumentException("Year must be between " + MINIMUM_YEAR + " and " + CURRENT_YEAR + ".");
+    public static void checkYear(final int year)
+    {
+        if (year <= MINIMUM_YEAR || year > CURRENT_YEAR)
+        {
+            throw new IllegalArgumentException("Year must be between " +
+                    MINIMUM_YEAR + " and " + CURRENT_YEAR + ".");
         }
     }
 
     /**
      * Checks if the provided month is within the valid range.
-     * The valid range is between MINIMUM_MONTH and MAXIMUM_MONTH, inclusive.
-     * Throws IllegalArgumentException if the month is out of bounds.
+     * The valid range is between {@value JANUARY} and
+     * {@value DECEMBER}, inclusive.
      *
-     * @param month the month to validate; unit: month (1 = January)
-     * @throws IllegalArgumentException if month is not between MINIMUM_MONTH and MAXIMUM_MONTH
+     * @param month the month to validate
+     * @throws IllegalArgumentException if month is not between
+     *                                  {@value JANUARY} and {@value DECEMBER}
      */
-    public static void checkMonth(final int month) {
-        if (month < MINIMUM_MONTH || month > MAXIMUM_MONTH) {
-            throw new IllegalArgumentException("Month must be between " + MINIMUM_MONTH + " and " + MAXIMUM_MONTH + ".");
+    public static void checkMonth(final int month)
+    {
+        if (month < JANUARY || month > DECEMBER)
+        {
+            throw new IllegalArgumentException("Month must be between " +
+                    JANUARY + " and " + DECEMBER + ".");
         }
     }
 
     /**
-     * Checks if the provided day is within the valid range for the given month and year.
-     * The valid range is between MINIMUM_DAY and the maximum day for the specified month and year, inclusive.
+     * Checks if the provided day is within the valid range for the
+     * given month and year. The valid range is between
+     * {@value MINIMUM_DAY_IN_MONTH} and the maximum day for the specified
+     * month and year, inclusive.
      * Throws IllegalArgumentException if the day is out of bounds.
      *
-     * @param day   the day to validate; unit: day
-     * @param month the month to validate; unit: month (1 = January)
-     * @param year  the year to validate; unit: year
-     * @throws IllegalArgumentException if day is not valid for the given month and year
+     * @param day   the day to validate
+     * @param month the month to validate
+     * @param year  the year to validate
+     * @throws IllegalArgumentException if day is not valid for the
+     *                                  given month and year
      */
     private static void checkDay(final int day,
                                  final int month,
-                                 final int year) {
+                                 final int year)
+    {
+
+        final int daysInMonth;
 
         if (day < MINIMUM_DAY_IN_MONTH)
         {
-            throw new IllegalArgumentException("The day cannot be less than " + MINIMUM_DAY_IN_MONTH + ".");
+            throw new IllegalArgumentException("The day cannot be less than " +
+                    MINIMUM_DAY_IN_MONTH + ".");
         }
 
-        if (month - MONTH_INDEX_OFFSET == FEBRUARY_INDEX && isLeapYear(year)) {
-            if (day > MAX_DAYS_IN_FEBRUARY_LEAP_YEAR) {
-                throw new IllegalArgumentException("The day cannot be more than " + MAX_DAYS_IN_FEBRUARY_LEAP_YEAR + " in February of a leap year.");
+        daysInMonth = Date.getDaysInMonth(month, year);
+
+        if (day > daysInMonth)
+        {
+            throw new IllegalArgumentException("The day cannot be more than " +
+                    daysInMonth + " in month " + month + ".");
+        }
+    }
+
+    private static int getDaysInMonth(int month, int year)
+    {
+        if (month == JANUARY)
+        {
+            return DAYS_IN_JANUARY;
+        } else if (month == FEBRUARY)
+        {
+            if (isLeapYear(year))
+            {
+                return DAYS_IN_FEBRUARY_LEAP_YEAR;
             }
-            return;
-        }
-
-        if (day > DAYS_IN_MONTH[month - MONTH_INDEX_OFFSET]) {
-            throw new IllegalArgumentException("The day cannot be more than " + DAYS_IN_MONTH[month - MONTH_INDEX_OFFSET] + " in month " + month + ".");
+            return DAYS_IN_FEBRUARY;
+        } else if (month == MARCH)
+        {
+            return DAYS_IN_MARCH;
+        } else if (month == APRIL)
+        {
+            return DAYS_IN_APRIL;
+        } else if (month == MAY)
+        {
+            return DAYS_IN_MAY;
+        } else if (month == JUNE)
+        {
+            return DAYS_IN_JUNE;
+        } else if (month == JULY)
+        {
+            return DAYS_IN_JULY;
+        } else if (month == AUGUST)
+        {
+            return DAYS_IN_AUGUST;
+        } else if (month == SEPTEMBER)
+        {
+            return DAYS_IN_SEPTEMBER;
+        } else if (month == OCTOBER)
+        {
+            return DAYS_IN_OCTOBER;
+        } else if (month == NOVEMBER)
+        {
+            return DAYS_IN_NOVEMBER;
+        } else if (month == DECEMBER)
+        {
+            return DAYS_IN_DECEMBER;
+        } else
+        {
+            throw new IllegalArgumentException("Invalid month: " + month);
         }
     }
 
@@ -120,30 +254,23 @@ public final class Date
      * <p>
      * A year is a leap year if:
      * <ul>
-     *   <li>It is divisible by 4, AND</li>
-     *   <li>It is not divisible by 100, OR</li>
-     *   <li>It is divisible by 400</li>
+     *   <li>It is divisible by {@value SHORT_LEAP_YEARS}, AND</li>
+     *   <li>It is not divisible by {@value MODERATE_LEAP_YEARS}, OR</li>
+     *   <li>It is divisible by {@value LONG_LEAP_YEARS}</li>
      * </ul>
      * </p>
      *
-     * @param year the year to check; unit: year
+     * @param year the year to check
      * @return true if the year is a leap year, false otherwise
      */
-    public static boolean isLeapYear(final int year) {
-        final int shortLeapYears;
-        final int moderateLeapYears;
-        final int longLeapYears;
+    public static boolean isLeapYear(final int year)
+    {
 
         boolean leapYear;
 
-
-        shortLeapYears    = 4;
-        moderateLeapYears = 100;
-        longLeapYears     = 400;
-
-        leapYear = (year % shortLeapYears == ZERO);
-        leapYear = (leapYear && year % moderateLeapYears != ZERO);
-        leapYear = (leapYear || year % longLeapYears == ZERO);
+        leapYear = (year % SHORT_LEAP_YEARS == ZERO);
+        leapYear = (leapYear && year % MODERATE_LEAP_YEARS != ZERO);
+        leapYear = (leapYear || year % LONG_LEAP_YEARS == ZERO);
 
         return leapYear;
     }
@@ -151,18 +278,20 @@ public final class Date
     /**
      * Gets the day of the month for this date.
      *
-     * @return the day of the month; unit: day
+     * @return the day of the month
      */
-    public int getDay() {
+    public int getDay()
+    {
         return this.day;
     }
 
     /**
      * Gets the month of the year for this date.
      *
-     * @return the month of the year; unit: month (1 = January)
+     * @return the month of the year
      */
-    public int getMonth() {
+    public int getMonth()
+    {
         return this.month;
     }
 
@@ -171,16 +300,57 @@ public final class Date
      *
      * @return the month name as a String
      */
-    public String getMonthName() {
-        return monthNames[this.month - MONTH_INDEX_OFFSET];
+    public String getMonthName()
+    {
+        if (this.month == JANUARY)
+        {
+            return JANUARY_NAME;
+        } else if (this.month == FEBRUARY)
+        {
+            return FEBRUARY_NAME;
+        } else if (this.month == MARCH)
+        {
+            return MARCH_NAME;
+        } else if (this.month == APRIL)
+        {
+            return APRIL_NAME;
+        } else if (this.month == MAY)
+        {
+            return MAY_NAME;
+        } else if (this.month == JUNE)
+        {
+            return JUNE_NAME;
+        } else if (this.month == JULY)
+        {
+            return JULY_NAME;
+        } else if (this.month == AUGUST)
+        {
+            return AUGUST_NAME;
+        } else if (this.month == SEPTEMBER)
+        {
+            return SEPTEMBER_NAME;
+        } else if (this.month == OCTOBER)
+        {
+            return OCTOBER_NAME;
+        } else if (this.month == NOVEMBER)
+        {
+            return NOVEMBER_NAME;
+        } else if (this.month == DECEMBER)
+        {
+            return DECEMBER_NAME;
+        } else
+        {
+            throw new IllegalArgumentException("Invalid month: " + this.month);
+        }
     }
 
     /**
      * Gets the year for this date.
      *
-     * @return the year; unit: year
+     * @return the year
      */
-    public int getYear() {
+    public int getYear()
+    {
         return this.year;
     }
 
@@ -189,7 +359,8 @@ public final class Date
      *
      * @return the date as a String in the format YYYY-MM-DD
      */
-    public String getYYYYMMDD() {
+    public String getYYYYMMDD()
+    {
         return String.format("%04d-%02d-%02d", year, month, day);
     }
 
@@ -202,20 +373,24 @@ public final class Date
      *   <li>For dates in the 1900s, add 0 at the start.</li>
      *   <li>For dates in the 2000s, add 6 at the start.</li>
      *   <li>For January/February in leap years, add 6 at the start.</li>
-     *   <li>Step 1: Calculate the number of twelves in the last two digits of the year.</li>
+     *   <li>Step 1: Calculate the number of twelves in the last two digits
+     *   of the year.</li>
      *   <li>Step 2: Calculate the remainder after dividing by 12.</li>
      *   <li>Step 3: Calculate the number of fours in the remainder.</li>
      *   <li>Step 4: Add the day of the month.</li>
-     *   <li>Step 5: Add the month code (January=1, February=4, March=4, April=0, May=2, June=5, July=0, August=3, September=6, October=1, November=4, December=6).</li>
+     *   <li>Step 5: Add the month code (January=1, February=4, March=4,
+     *   April=0, May=2, June=5, July=0, August=3, September=6, October=1,
+     *   November=4, December=6).</li>
      *   <li>Step 6: Add all previous numbers and mod by 7.</li>
-     *   <li>Step 7: Map the result to the day of the week (0=Saturday, 1=Sunday, 2=Monday, 3=Tuesday, 4=Wednesday, 5=Thursday, 6=Friday).</li>
+     *   <li>Step 7: Map the result to the day of the week (0=Saturday,
+     *   1=Sunday, 2=Monday, 3=Tuesday, 4=Wednesday, 5=Thursday, 6=Friday).</li>
      * </ul>
      * </p>
      *
      * @return the day of the week as a String (e.g., "Monday")
      */
-    public String getDayOfTheWeek() {
-
+    public String getDayOfTheWeek()
+    {
         final int stepZeroConstantJanFebLeapYear;
         final int stepZeroConstant2000s;
         final int stepZeroConstant1800s;
@@ -234,33 +409,6 @@ public final class Date
         stepThreeDivision = 4;
         stepSixDivision = 7;
 
-        final int[] monthCodes =
-                {
-                        1, // January
-                        4, // February
-                        4, // March
-                        0, // April
-                        2, // May
-                        5, // June
-                        0, // July
-                        3, // August
-                        6, // September
-                        1, // October
-                        4, // November
-                        6  // December
-                };
-
-        final String[] dayNames =
-                {
-                        "Saturday", // 0
-                        "Sunday",   // 1
-                        "Monday",   // 2
-                        "Tuesday",  // 3
-                        "Wednesday",// 4
-                        "Thursday", // 5
-                        "Friday"    // 6
-                };
-
         int stepZeroValue;
         int stepOneValue;
         int stepTwoValue;
@@ -271,13 +419,16 @@ public final class Date
 
         stepZeroValue = ZERO;
 
-        if (isLeapYear(year) && (month == JANUARY_INDEX || month == FEBRUARY_INDEX)) {
+        if (isLeapYear(year) && (month == JANUARY || month == FEBRUARY))
+        {
             stepZeroValue += stepZeroConstantJanFebLeapYear;
         }
 
-        if (year >= TWENTY_FIRST_CENTURY_START) {
+        if (year >= TWENTY_FIRST_CENTURY_START)
+        {
             stepZeroValue += stepZeroConstant2000s;
-        } else if (year <= NINETEENTH_CENTURY_START) {
+        } else if (year <= NINETEENTH_CENTURY_START)
+        {
             stepZeroValue += stepZeroConstant1800s;
         }
 
@@ -297,13 +448,143 @@ public final class Date
                         day;
 
         stepFiveValue = stepFourValue +
-                monthCodes[month - MONTH_INDEX_OFFSET];
+                getMonthCode(month);
 
         stepSixValue = stepFiveValue % stepSixDivision;
 
-        finalValue = dayNames[stepSixValue];
+        finalValue = getDayOfWeekName(stepSixValue);
 
         return finalValue;
+    }
+
+    /**
+     * Returns the month code for the specified month.
+     * <p>
+     * The month code is used in the day of the week calculation algorithm.
+     * The mapping is as follows:
+     * <ul>
+     *   <li>{@value #JANUARY} = {@value #MONTH_CODE_JANUARY}</li>
+     *   <li>{@value #FEBRUARY} = {@value #MONTH_CODE_FEBRUARY}</li>
+     *   <li>{@value #MARCH} = {@value #MONTH_CODE_MARCH}</li>
+     *   <li>{@value #APRIL} = {@value #MONTH_CODE_APRIL}</li>
+     *   <li>{@value #MAY} = {@value #MONTH_CODE_MAY}</li>
+     *   <li>{@value #JUNE} = {@value #MONTH_CODE_JUNE}</li>
+     *   <li>{@value #JULY} = {@value #MONTH_CODE_JULY}</li>
+     *   <li>{@value #AUGUST} = {@value #MONTH_CODE_AUGUST}</li>
+     *   <li>{@value #SEPTEMBER} = {@value #MONTH_CODE_SEPTEMBER}</li>
+     *   <li>{@value #OCTOBER} = {@value #MONTH_CODE_OCTOBER}</li>
+     *   <li>{@value #NOVEMBER} = {@value #MONTH_CODE_NOVEMBER}</li>
+     *   <li>{@value #DECEMBER} = {@value #MONTH_CODE_DECEMBER}</li>
+     * </ul>
+     * </p>
+     *
+     * @param month the month to get the code for; unit: month (1 = January)
+     * @return the month code as an int
+     * @throws IllegalArgumentException if the month is not valid
+     */
+    private int getMonthCode(final int month)
+    {
+        if (month == JANUARY)
+        {
+            return MONTH_CODE_JANUARY;
+        }
+        if (month == FEBRUARY)
+        {
+            return MONTH_CODE_FEBRUARY;
+        }
+        if (month == MARCH)
+        {
+            return MONTH_CODE_MARCH;
+        }
+        if (month == APRIL)
+        {
+            return MONTH_CODE_APRIL;
+        }
+        if (month == MAY)
+        {
+            return MONTH_CODE_MAY;
+        }
+        if (month == JUNE)
+        {
+            return MONTH_CODE_JUNE;
+        }
+        if (month == JULY)
+        {
+            return MONTH_CODE_JULY;
+        }
+        if (month == AUGUST)
+        {
+            return MONTH_CODE_AUGUST;
+        }
+        if (month == SEPTEMBER)
+        {
+            return MONTH_CODE_SEPTEMBER;
+        }
+        if (month == OCTOBER)
+        {
+            return MONTH_CODE_OCTOBER;
+        }
+        if (month == NOVEMBER)
+        {
+            return MONTH_CODE_NOVEMBER;
+        }
+        if (month == DECEMBER)
+        {
+            return MONTH_CODE_DECEMBER;
+        }
+        throw new IllegalArgumentException("Invalid month: " + month);
+    }
+
+    /**
+     * Returns the name of the day of the week corresponding to the provided day index.
+     * <p>
+     * The mapping is as follows:
+     * <ul>
+     *   <li>0 = "Saturday"</li>
+     *   <li>1 = "Sunday"</li>
+     *   <li>2 = "Monday"</li>
+     *   <li>3 = "Tuesday"</li>
+     *   <li>4 = "Wednesday"</li>
+     *   <li>5 = "Thursday"</li>
+     *   <li>6 = "Friday"</li>
+     * </ul>
+     * </p>
+     *
+     * @param dayIndex the index of the day; unit: day (0 = Saturday, 1 = Sunday, ..., 6 = Friday)
+     * @return the name of the day of the week as a String
+     * @throws IllegalArgumentException if the day index is not between 0 and 6, inclusive
+     */
+    private String getDayOfWeekName(final int dayIndex)
+    {
+        if (dayIndex == SATURDAY)
+        {
+            return "Saturday";
+        }
+        if (dayIndex == SUNDAY)
+        {
+            return "Sunday";
+        }
+        if (dayIndex == MONDAY)
+        {
+            return "Monday";
+        }
+        if (dayIndex == TUESDAY)
+        {
+            return "Tuesday";
+        }
+        if (dayIndex == WEDNESDAY)
+        {
+            return "Wednesday";
+        }
+        if (dayIndex == THURSDAY)
+        {
+            return "Thursday";
+        }
+        if (dayIndex == FRIDAY)
+        {
+            return "Friday";
+        }
+        throw new IllegalArgumentException("Invalid day index: " + dayIndex);
     }
 
 
