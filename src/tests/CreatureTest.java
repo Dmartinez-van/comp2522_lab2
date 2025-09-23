@@ -246,6 +246,7 @@ public class CreatureTest {
         System.out.println();
 
         // Make Creatures fight
+        System.out.println("FIGHT!!!!");
         System.out.println("Orc attacks Dragon!");
 
         int orcDamage;
@@ -254,6 +255,23 @@ public class CreatureTest {
         dragon.takeDamage(orcDamage);
         System.out.println(orcDamage + " damage taken by Dragon!");
         System.out.println("Dragon HP: " + dragon.getCurrentHealth());
+        System.out.println("Is dragon alive? " + dragon.isAlive());
+
+        System.out.println("Dragon attacks Orc!");
+        int dragonDamage;
+        dragonDamage = dragonCasted.breatheFire();
+        orc.takeDamage(dragonDamage);
+        System.out.println(dragonDamage + " damage taken by Orc!");
+        System.out.println("Orc HP: " + orc.getCurrentHealth());
+        System.out.println("Is orc alive? " + orc.isAlive());
+
+        System.out.println("Dragon's details before restoring firepower:\n" +
+                dragonCasted.getDetails());
+        System.out.println("Dragon restores firepower!");
+        final int firePowerRestored;
+        firePowerRestored = 50;
+        dragonCasted.restoreFirePower(firePowerRestored);
+        System.out.println("Dragon's details are:\n" + dragonCasted.getDetails());
 
         System.out.println("Orc attacks 4 more times!");
         orcDamage = 0;
@@ -273,5 +291,19 @@ public class CreatureTest {
         dragon.takeDamage(orcDamage);
         System.out.println(orcDamage + " damage taken by Dragon!");
         System.out.println("Dragon HP: " + dragon.getCurrentHealth());
+        System.out.println("Is dragon alive? " + dragon.isAlive());
+
+        final int manaRestored;
+        manaRestored = 30;
+        System.out.println("Elf restores " + manaRestored + " mana!");
+        elfCasted.restoreMana(manaRestored);
+        System.out.println("Elf's details AFTER Restore mana:\n" +
+                elfCasted.getDetails());
+
+        System.out.println("Elf casts a spell 3 times!");
+        elfCasted.castSpell();
+        elfCasted.castSpell();
+        elfCasted.castSpell();
+        System.out.println("Elf's details are:\n" + elfCasted.getDetails());
     }
 }
