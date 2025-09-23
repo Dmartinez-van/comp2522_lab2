@@ -65,17 +65,13 @@ public class Dragon extends Creature
      * @param name        the name of the dragon as a {@link String}
      * @param dateOfBirth the date of birth of the dragon as a {@link Date}
      * @param health      the health value of the dragon as an {@code int}
-     * @param firePower   the initial fire power of the dragon as an
+     * @param firePower   the initial firepower of the dragon as an
      *                    {@code int}, must be between
      *                    {@link #MINIMUM_FIRE_POWER} and
      *                    {@link #MAXIMUM_FIRE_POWER}
      * @throws IllegalArgumentException if {@code firePower} is less than
      *                                  {@link #MINIMUM_FIRE_POWER} or greater
      *                                  than {@link #MAXIMUM_FIRE_POWER}
-     * @param health the health value of the dragon as an {@code int}
-     * @param firePower the initial fire power of the dragon as an {@code int},
-     *                 must be between {@link #MINIMUM_FIRE_POWER} and
-     *                 {@link #MAXIMUM_FIRE_POWER}
      * @throws IllegalArgumentException if {@code firePower} is less than
      *                 {@link #MINIMUM_FIRE_POWER} or greater than
      *                 {@link #MAXIMUM_FIRE_POWER}

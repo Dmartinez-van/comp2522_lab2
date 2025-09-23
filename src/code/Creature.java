@@ -1,5 +1,8 @@
 /**
- * A Creature class.
+ * Representation of a creature with a name, date of birth, and health.
+ * Creatures can take damage and be healed.
+ * Creatures can check if they are alive and get their age in years.
+ * Creatures can provide their details in a formatted string.
  *
  * @author David Martinez, Daniel Do
  * @version 1.0
@@ -58,10 +61,15 @@ public class Creature
     {
         if (health < MIN_HEALTH || health > MAX_HEALTH)
         {
+            StringBuilder messageBuilder;
 
-            // TODO: Replace min and max in string with stringbuilder with proper MIN_HEALTH MAX_HEALTH
-            throw new IllegalArgumentException("Health cannot exceed" +
-                    " min or max");
+            messageBuilder = new StringBuilder("Health must be between ");
+
+            messageBuilder.append(MIN_HEALTH);
+            messageBuilder.append(" and ");
+            messageBuilder.append(MAX_HEALTH);
+
+            throw new IllegalArgumentException(messageBuilder.toString());
         }
     }
 
