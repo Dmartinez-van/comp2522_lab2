@@ -11,14 +11,9 @@ public class Elf extends Creature
 {
     private static final int MINIMUM_MANA = 0;
     private static final int MAXIMUM_MANA = 50;
-    private static final int SPELL_COST = 5;
+    private static final int SPELL_COST   = 5;
     private static final int SPELL_DAMAGE = 10;
 
-    /**
-     * The current mana points of the Elf.
-     * Mana is used to cast spells and is limited between {@value #MINIMUM_MANA}
-     * and {@value #MAXIMUM_MANA}.
-     */
     private int mana;
 
     /**

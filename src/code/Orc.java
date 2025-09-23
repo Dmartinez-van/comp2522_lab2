@@ -8,12 +8,12 @@
 public class Orc extends Creature
 {
     private static final int BERSERK_INCREASE_RAGE_POINTS = 5;
-    private static final int BERSERK_COST = 5;
-    private static final int MIN_RAGE_POINTS = 0;
-    private static final int MAX_RAGE_POINTS = 30;
-    private static final int RAGE_THRESHOLD_POINTS = 20;
-    private static final int DAMAGE_NORMAL_HP_POINTS = 15;
-    private static final int DAMAGE_DOUBLE_HP_POINTS = 30;
+    private static final int BERSERK_COST                 = 5;
+    private static final int MIN_RAGE_POINTS              = 0;
+    private static final int MAX_RAGE_POINTS              = 30;
+    private static final int RAGE_THRESHOLD_POINTS        = 20;
+    private static final int DAMAGE_NORMAL_HP_POINTS      = 15;
+    private static final int DAMAGE_DOUBLE_HP_POINTS      = 30;
 
     private int rage;
 

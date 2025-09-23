@@ -1,16 +1,16 @@
 /**
- * A Creature class
+ * A Creature class.
  *
  * @author David Martinez, Daniel Do
  * @version 1.0
  */
 public class Creature
 {
-    private static final int MIN_HEALTH         = 0;
-    private static final int MAX_HEALTH         = 100;
+    private static final int MIN_HEALTH = 0;
+    private static final int MAX_HEALTH = 100;
     private static final int MIN_DAMAGE_ALLOWED = 0;
-    private static final int MIN_HEAL_ALLOWED   = 0;
-    private static final int CURRENT_YEAR       = 2025;
+    private static final int MIN_HEAL_ALLOWED = 0;
+    private static final int CURRENT_YEAR = 2025;
 
     private final String name;
     private final Date dateOfBirth;
@@ -58,13 +58,16 @@ public class Creature
     {
         if (health < MIN_HEALTH || health > MAX_HEALTH)
         {
+
+            // TODO: Replace min and max in string with stringbuilder with proper MIN_HEALTH MAX_HEALTH
             throw new IllegalArgumentException("Health cannot exceed" +
-                                               " min or max");
+                    " min or max");
         }
     }
 
     /**
      * Checks if creature is alive or not (boolean)
+     *
      * @return true if health is greater than {@value MIN_HEALTH}
      */
     public boolean isAlive()
@@ -77,6 +80,7 @@ public class Creature
      * Damage taken cannot be below {@value MIN_DAMAGE_ALLOWED}.
      * If creature's health goes below {@value MIN_HEALTH},
      * it is set to {@value MIN_HEALTH}.
+     *
      * @param damageTaken the amount of damage taken
      */
     public void takeDamage(final int damageTaken)
@@ -89,6 +93,7 @@ public class Creature
 
         health -= damageTaken;
 
+        // This okay?
         if (health < MIN_HEALTH)
         {
             health = MIN_HEALTH;
@@ -99,13 +104,11 @@ public class Creature
      * Heals a creature by a non-negative amount.
      * Will set Creature's health to {@value MAX_HEALTH} if
      * they were to be healed past the max ({@value MAX_HEALTH}).
+     *
      * @param healAmount the amount to heal
      */
     public void heal(final int healAmount)
     {
-        // check for healAmount exceeding 100
-
-        // check for negative heal amount -> throw new HealingException
         if (healAmount < MIN_HEAL_ALLOWED)
         {
             throw new HealingException("Cannot heal less than " +
@@ -123,6 +126,7 @@ public class Creature
 
     /**
      * Calculates the creatures age in years based on {@value CURRENT_YEAR}.
+     *
      * @return the age of creature; unit: years
      */
     public int getAgeYears()
@@ -136,6 +140,7 @@ public class Creature
 
     /**
      * Gets creature's current health.
+     *
      * @return current health.
      */
     public int getCurrentHealth()
@@ -151,6 +156,7 @@ public class Creature
      *     <li>Age</li>
      *     <li>Health</li>
      * </ul>
+     *
      * @return a string message of the creature's details
      */
     public String getDetails()
@@ -158,16 +164,24 @@ public class Creature
         final int age;
         final String finalMessage;
 
-        String messageBuilder;
+        StringBuilder messageBuilder;
+        messageBuilder = new StringBuilder();
 
         age = getAgeYears();
 
-        messageBuilder = "Name: " + name + "\n";
-        messageBuilder += "Date of birth: " + dateOfBirth.getYYYYMMDD() + "\n";
-        messageBuilder += "Age: " + age + "\n";
-        messageBuilder += "Health: " + health + "\n";
-
-        finalMessage = messageBuilder;
+        messageBuilder.append("Name: ");
+        messageBuilder.append(name);
+        messageBuilder.append("\n");
+        messageBuilder.append("Date of birth: ");
+        messageBuilder.append(dateOfBirth.getYYYYMMDD());
+        messageBuilder.append("\n");
+        messageBuilder.append("Age: ");
+        messageBuilder.append(age);
+        messageBuilder.append("\n");
+        messageBuilder.append("Health: ");
+        messageBuilder.append(health);
+        messageBuilder.append("\n");
+        finalMessage = messageBuilder.toString();
 
         return finalMessage;
     }
