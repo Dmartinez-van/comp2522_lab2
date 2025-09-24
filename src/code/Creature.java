@@ -4,7 +4,8 @@
  * Creatures can check if they are alive and get their age in years.
  * Creatures can provide their details in a formatted string.
  *
- * @author David Martinez, Daniel Do
+ * @author David Martinez,
+ *         Daniel Do
  * @version 1.0
  */
 public class Creature
@@ -103,7 +104,7 @@ public class Creature
     {
         if (damageTaken < MIN_DAMAGE_ALLOWED)
         {
-            throw new DamageExeption("Damage cannot be below " +
+            throw new DamageException("Damage cannot be below " +
                     MIN_DAMAGE_ALLOWED);
         }
 
