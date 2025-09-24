@@ -4,7 +4,8 @@
  * and can be restored up to a maximum value. If an Elf attempts to cast a spell
  * without enough mana, a {@link LowManaException} is thrown.
  *
- * @author Daniel Do, David Martinez
+ * @author Daniel Do,
+ *         David Martinez
  * @version 1.0
  */
 public class Elf extends Creature
@@ -92,7 +93,7 @@ public class Elf extends Creature
             throw new LowManaException("Not enough mana to cast a spell.");
         }
 
-        this.mana -= SPELL_COST;
+        mana -= SPELL_COST;
 
         return SPELL_DAMAGE;
     }
@@ -105,11 +106,11 @@ public class Elf extends Creature
      */
     public void restoreMana(final int amount)
     {
-        this.mana += amount;
+        mana += amount;
 
-        if (this.mana > MAXIMUM_MANA)
+        if (mana > MAXIMUM_MANA)
         {
-            this.mana = MAXIMUM_MANA;
+            mana = MAXIMUM_MANA;
         }
     }
 }
