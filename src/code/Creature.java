@@ -50,6 +50,11 @@ public class Creature
 
     private void checkBirthDate(final Date dateOfBirth)
     {
+        /*
+         Only checking the DOB year against the current year.
+         If we add a method to Date class to get current year, month, and day
+         then we could expand this checker method.
+        */
         final boolean yearCheck;
 
         yearCheck = dateOfBirth.getYear() > CURRENT_YEAR;
@@ -104,7 +109,6 @@ public class Creature
 
         health -= damageTaken;
 
-        // This okay?
         if (health < MIN_HEALTH)
         {
             health = MIN_HEALTH;
@@ -128,7 +132,6 @@ public class Creature
 
         health += healAmount;
 
-        // Cannot exceed max health
         if (health > MAX_HEALTH)
         {
             health = MAX_HEALTH;
@@ -173,9 +176,8 @@ public class Creature
     public String getDetails()
     {
         final int age;
-        final String finalMessage;
+        final StringBuilder messageBuilder;
 
-        StringBuilder messageBuilder;
         messageBuilder = new StringBuilder();
 
         age = getAgeYears();
@@ -192,8 +194,7 @@ public class Creature
         messageBuilder.append("Health: ");
         messageBuilder.append(health);
         messageBuilder.append("\n");
-        finalMessage = messageBuilder.toString();
 
-        return finalMessage;
+        return messageBuilder.toString();
     }
 }
