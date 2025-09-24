@@ -38,15 +38,16 @@
  * </ul>
  * </p>
  *
- * @author David Martinez, Daniel Do
+ * @author David Martinez,
+ *         Daniel Do
  * @version 1.0
  */
 public class Dragon extends Creature
 {
-    public static final int MINIMUM_FIRE_POWER = 1;
-    public static final int MAXIMUM_FIRE_POWER = 100;
+    public static final int MINIMUM_FIRE_POWER    = 1;
+    public static final int MAXIMUM_FIRE_POWER    = 100;
     public static final int FIRE_POWER_ACTIVATION = 10;
-    public static final int FIRE_BREATH_DAMAGE = 20;
+    public static final int FIRE_BREATH_DAMAGE    = 20;
 
     private int firePower;
 
@@ -84,6 +85,7 @@ public class Dragon extends Creature
         super(name, dateOfBirth, health);
 
         checkFirePower(firePower);
+
         this.firePower = firePower;
     }
 
@@ -139,7 +141,7 @@ public class Dragon extends Creature
                     FIRE_POWER_ACTIVATION);
         }
 
-        this.firePower -= FIRE_POWER_ACTIVATION;
+        firePower -= FIRE_POWER_ACTIVATION;
 
         return FIRE_BREATH_DAMAGE;
     }
@@ -152,11 +154,11 @@ public class Dragon extends Creature
      */
     public void restoreFirePower(final int amount)
     {
-        this.firePower += amount;
+        firePower += amount;
 
-        if (this.firePower > MAXIMUM_FIRE_POWER)
+        if (firePower > MAXIMUM_FIRE_POWER)
         {
-            this.firePower = MAXIMUM_FIRE_POWER;
+            firePower = MAXIMUM_FIRE_POWER;
         }
     }
 }
