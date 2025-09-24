@@ -2,7 +2,8 @@
  * Represents an Orc, a type of Creature with a rage attribute.
  * Provides methods to access details and perform berserk attacks.
  *
- * @author Daniel Do, David Martinez
+ * @author Daniel Do,
+ *         David Martinez
  * @version 1.0
  */
 public class Orc extends Creature
@@ -63,27 +64,13 @@ public class Orc extends Creature
     /**
      * Performs a berserk attack on the specified target creature.
      * <p>
-     *     Method executes in the following order:
-     *     <ol>
-     *         <li>Checks for sufficient rage, berserk() costs
-     *         {@value BERSERK_COST}.</li>
-     *         <li>If insufficient rage, throws new error.</li>
-     *         <li>If successful, increases rage by
-     *         {@value BERSERK_INCREASE_RAGE_POINTS}</li>
-     *         <li>If the resulting rage exceeds {@value RAGE_THRESHOLD_POINTS},
-     *         the orc deals double damage</li>
-     *         <li></li>
-     *     </ol>
-     *
-     * ({@value DAMAGE_DOUBLE_HP_POINTS} health points) to the target creature.
-     * Otherwise, the orc deals normal damage
-     * ({@value DAMAGE_NORMAL_HP_POINTS} health points).
+     * Deals {@value DAMAGE_DOUBLE_HP_POINTS} health points to the target
+     * creature if Orc has {@value BERSERK_COST} or more rage. Otherwise, the orc
+     * deals normal damage ({@value DAMAGE_NORMAL_HP_POINTS} health points).
      * <p>
-     * The rage value is immutable in this implementation; to allow rage to
-     * increase, remove the final modifier.
      *
      * @throws LowRageException if the resulting rage is less
-     *                          than {@value BERSERK_COST}
+     *                          than min cost of {@value BERSERK_COST}
      * @return the damage the orc will deal.
      */
     public final int berserk() throws LowRageException
