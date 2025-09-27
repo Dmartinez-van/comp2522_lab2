@@ -1,5 +1,5 @@
 /**
- * Exception for damage.
+ * Runtime Exception for damage.
  *
  * @author David Martinez,
  *         Daniel Do

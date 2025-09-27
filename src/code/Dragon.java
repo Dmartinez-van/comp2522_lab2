@@ -7,18 +7,10 @@
  * {@link #MINIMUM_FIRE_POWER} to {@link #MAXIMUM_FIRE_POWER}.
  * The firepower determines the dragon's ability to use its fire breath attack
  * and can be restored up to its maximum value.
- * This class models a dragon's firepower, which is an integer
- * value (unitless) ranging from {@link #MINIMUM_FIRE_POWER} to
- * {@link #MAXIMUM_FIRE_POWER}. The firepower determines the dragon's
- * ability to use its fire breath attack and can be restored up
- * to its maximum value.
  * </p>
  * <p>
  * <b>Class-specific data:</b>
  * <ul>
- *     <li><b>firePower</b>: The current firepower level of the dragon
- *     (int, unitless, range: {@link #MINIMUM_FIRE_POWER} to
- *     {@link #MAXIMUM_FIRE_POWER}).</li>
  *     <li><b>firePower</b>: The current firepower level of the dragon
  *     (int, unitless, range: {@link #MINIMUM_FIRE_POWER} to
  *     {@link #MAXIMUM_FIRE_POWER}).</li>
