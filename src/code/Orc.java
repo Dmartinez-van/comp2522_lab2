@@ -41,7 +41,7 @@ public class Orc extends Creature
     {
         if (rage < MIN_RAGE_POINTS)
         {
-            StringBuilder messageBuilder;
+            final StringBuilder messageBuilder;
 
             messageBuilder = new StringBuilder("Rage must be greater than ");
             messageBuilder.append(MIN_RAGE_POINTS);
