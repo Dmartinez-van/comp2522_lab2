@@ -7,9 +7,13 @@
  */
 public class LowManaException extends Exception
 {
-        public LowManaException(final String message)
-        {
-            super(message);
-        }
+    /**
+     * LowManaException constructor.
+     * @param message the message to display.
+     */
+    public LowManaException(final String message)
+    {
+        super(message);
+    }
 
 }

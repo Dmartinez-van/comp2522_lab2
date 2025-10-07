@@ -37,16 +37,15 @@ public class Orc extends Creature
         this.rage = rage;
     }
 
+    /*
+    Check rage for out of min max bounds
+    throw new IllegalArgumentException
+     */
     private void checkRage(final int rage)
     {
-        if (rage < MIN_RAGE_POINTS)
+        if (rage < MIN_RAGE_POINTS || rage > MAX_RAGE_POINTS)
         {
-            final StringBuilder messageBuilder;
-
-            messageBuilder = new StringBuilder("Rage must be greater than ");
-            messageBuilder.append(MIN_RAGE_POINTS);
-
-            throw new IllegalArgumentException(messageBuilder.toString());
+            throw new IllegalArgumentException("Rage out of bounds");
         }
     }
 

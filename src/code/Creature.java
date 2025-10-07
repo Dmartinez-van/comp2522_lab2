@@ -10,10 +10,10 @@
  */
 public class Creature
 {
-    private static final int MIN_HEALTH         = 0;
+    private static final int MIN_HEALTH         = 10;
     private static final int MAX_HEALTH         = 100;
     private static final int MIN_DAMAGE_ALLOWED = 0;
-    private static final int MIN_HEAL_ALLOWED   = 0;
+    private static final int MIN_HEAL_ALLOWED   = 20;
     private static final int CURRENT_YEAR       = 2025;
 
     private final String name;
@@ -41,6 +41,10 @@ public class Creature
         this.health = health;
     }
 
+    /*
+    Checks for null and blank string, invalid if either null or blank
+    throws new IllegalArgumentException
+     */
     private void checkName(final String name)
     {
         if (name == null || name.isBlank())
@@ -49,13 +53,13 @@ public class Creature
         }
     }
 
+    /*
+    Checking the DOB year against the current year. Cannot be set in future
+    throws new IllegalArgumentException
+     */
     private void checkBirthDate(final Date dateOfBirth)
     {
-        /*
-         Only checking the DOB year against the current year.
-         If we add a method to Date class to get current year, month, and day
-         then we could expand this checker method.
-        */
+
         final boolean yearCheck;
 
         yearCheck = dateOfBirth.getYear() > CURRENT_YEAR;
@@ -66,6 +70,10 @@ public class Creature
         }
     }
 
+    /*
+    Checks health against min and max constants, invalid if it falls out of bounds
+    throws new IllegalArgumentException
+     */
     private void checkHealth(final int health)
     {
         if (health < MIN_HEALTH || health > MAX_HEALTH)

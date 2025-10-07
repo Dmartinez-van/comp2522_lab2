@@ -7,6 +7,10 @@
  */
 public class HealingException extends RuntimeException
 {
+    /**
+     * HealingException constructor.
+     * @param message the message to display.
+     */
     public HealingException(final String message)
     {
         super(message);

@@ -81,6 +81,10 @@ public class Dragon extends Creature
         this.firePower = firePower;
     }
 
+    /*
+    Check to see if firePower is between min and max constraints
+    throws new IllegalArgumentException
+     */
     private void checkFirePower(final int firePower)
     {
         if (firePower < MINIMUM_FIRE_POWER ||

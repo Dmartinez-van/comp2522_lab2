@@ -7,6 +7,10 @@
  */
 public class LowFirePowerException extends Exception
 {
+    /**
+     * LowFirePowerException constructor.
+     * @param message the message to display.
+     */
     public LowFirePowerException(final String message)
     {
         super(message);
